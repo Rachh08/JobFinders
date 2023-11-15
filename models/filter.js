@@ -1,13 +1,11 @@
-// class filter {
-//     constructor(items) {
-//       this.items = items;
-//     }
-  
-//     // Basic filter function to filter items based on a condition
-//     filterByCondition(conditionFunction) {
-//       return this.items.filter(conditionFunction);
-//     }
-//   }
-  
-//   module.exports = { filter };
-  
+class JobFilter {
+    static filterJobs(jobs, filterCriteria) {
+        return jobs.filter(job => {
+            // Filtering logic 
+            
+            // For example filter by category
+            return job.category === filterCriteria.category;
+        });
+    }
+}
+module.exports = { JobFilter };

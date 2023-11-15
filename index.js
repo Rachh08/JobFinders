@@ -9,8 +9,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
-const { Filter } = require('./utils/FilterUtil')
-app.get('/Filter', Filter);
+const { filter } = require('./utils/FilterUtil')
+app.get('/filter', filter);
 
 app.get('/', (req, res) => {
 res.sendFile(__dirname + "/public/" + startPage);

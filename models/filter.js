@@ -1,4 +1,4 @@
-class Filter {
+class filter {
     constructor(items) {
       this.items = items;
     }
@@ -9,5 +9,5 @@ class Filter {
     }
   }
   
-  module.exports = { Filter };
+  module.exports = { filter };
   

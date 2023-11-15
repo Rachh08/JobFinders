@@ -9,8 +9,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
-const { filter } = require('./utils/FilterUtil')
-app.get('/filter', filter);
+// const { filter } = require('./utils/FilterUtil')
+// app.get('/filter', filter);
 
 const { register } = require('./utils/UserUtil')
 app.post('/register', register);

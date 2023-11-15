@@ -12,6 +12,9 @@ app.use(express.static("./public"));
 const { filter } = require('./utils/FilterUtil')
 app.get('/filter', filter);
 
+const { register } = require('./utils/UserUtil')
+app.post('/register', register);
+
 app.get('/', (req, res) => {
 res.sendFile(__dirname + "/public/" + startPage);
 })

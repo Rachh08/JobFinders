@@ -1,4 +1,4 @@
-const { JobFilter } = require('../models/filter');
+const { JobFilter } = require('../models/JobFilter');
 const fs = require('fs').promises;
 
 async function readJSON(filename) {
@@ -24,7 +24,7 @@ async function writeJSON(object, filename) {
 }
 
 async function filterJobs(filters) {
-    const allJobs = await readJSON('utils/jobs.json');
+    const allJobs = await readJSON('utils/JobFilter.json');
     let filteredJobs = allJobs;
 
     if (filters.title) {

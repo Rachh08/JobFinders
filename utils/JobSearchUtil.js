@@ -1,4 +1,4 @@
-const { JobFilter } = require('../models/JobFilter');
+const { SearchFilter } = require('../models/JobSearch');
 const fs = require('fs').promises;
 
 async function readJSON(filename) {
@@ -23,31 +23,31 @@ async function writeJSON(object, filename) {
     }
 }
 
-async function filterJobs(filters) {
+async function searchJobs(filters) {
     const allJobs = await readJSON('utils/JobFilter.json');
-    let filteredJobs = allJobs;
+    let searchedJobs = allJobs;
 
     if (filters.title) {
-        filteredJobs = filteredJobs.filter((job) => job.title.toLowerCase().includes(filters.title.toLowerCase()));
+        searchedJobs = searchedJobs.filter((job) => job.title.toLowerCase().includes(filters.title.toLowerCase()));
     }
 
     if (filters.location) {
-        filteredJobs = filteredJobs.filter((job) => job.location.toLowerCase().includes(filters.location.toLowerCase()));
+        searchedJobs = searchedJobs.filter((job) => job.location.toLowerCase().includes(filters.location.toLowerCase()));
     }
 
     // if (filters.category) {
-    //     filteredJobs = filteredJobs.filter((job) => job.category.toLowerCase().includes(filters.category.toLowerCase()));
+    //     searchedJobs = searchedJobs.filter((job) => job.category.toLowerCase().includes(filters.category.toLowerCase()));
     // }
 
     // if (filters.minSalary) {
-    //     filteredJobs = filteredJobs.filter((job) => job.salary >= filters.minSalary);
+    //     searchedJobs = searchedJobs.filter((job) => job.salary >= filters.minSalary);
     // }
 
     if (filters.employmentType) {
-        filteredJobs = filteredJobs.filter((job) => job.employmentType.toLowerCase().includes(filters.employmentType.toLowerCase()));
+        searchedJobs = searchedJobs.filter((job) => job.employmentType.toLowerCase().includes(filters.employmentType.toLowerCase()));
     }
 
-    return filteredJobs;
+    return searchedJobs;
 }
 
-module.exports = { readJSON, writeJSON, filterJobs };
+module.exports = { readJSON, writeJSON, searchJobs };

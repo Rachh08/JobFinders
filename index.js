@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
-const { JobFilter } = require('./utils/JobFilterUtil')
+const { JobFilter } = require('./utils/JobSearchUtil')
 app.get('/filterJobs', JobFilter);
 
 const { register } = require('./utils/UserUtil')

@@ -18,7 +18,7 @@ async function register(req, res) {
     try {
         const email = req.body.email;
         const password = req.body.password;
-        if (!email.includes('@') || !email.includes('.') || password.length < 6) {
+        if (!email.includes('@') || !email.includes('.com') || password.length < 8) {
             return res.status(500).json({ message: 'Validation error' });
         } else {
             const newUser = new User(email, password);

@@ -35,13 +35,13 @@ async function filterJobs(filters) {
         filteredJobs = filteredJobs.filter((job) => job.location.toLowerCase().includes(filters.location.toLowerCase()));
     }
 
-    if (filters.category) {
-        filteredJobs = filteredJobs.filter((job) => job.category.toLowerCase().includes(filters.category.toLowerCase()));
-    }
+    // if (filters.category) {
+    //     filteredJobs = filteredJobs.filter((job) => job.category.toLowerCase().includes(filters.category.toLowerCase()));
+    // }
 
-    if (filters.minSalary) {
-        filteredJobs = filteredJobs.filter((job) => job.salary >= filters.minSalary);
-    }
+    // if (filters.minSalary) {
+    //     filteredJobs = filteredJobs.filter((job) => job.salary >= filters.minSalary);
+    // }
 
     if (filters.employmentType) {
         filteredJobs = filteredJobs.filter((job) => job.employmentType.toLowerCase().includes(filters.employmentType.toLowerCase()));

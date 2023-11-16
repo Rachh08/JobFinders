@@ -18,10 +18,13 @@ async function register(req, res) {
     try {
         const email = req.body.email;
         const password = req.body.password;
-        if (!email.includes('@') || !email.includes('.com') || password.length < 8) {
+        const name = req.body.name;
+        const mobile = req.body.mobile;
+        if (!email.includes('@') || !email.includes('.com') || password.length < 8 ||!/(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(password)
+        ||!/^[a-zA-Z]+$/.test(name) ||mobile.includes()|| !/^\d{8}$/.test(mobile)) {
             return res.status(500).json({ message: 'Validation error' });
         } else {
-            const newUser = new User(email, password);
+            const newUser = new User(email, password, name, mobile);
             const updatedUsers = await writeJSON(newUser, 'utils/users.json');
             return res.status(201).json(updatedUsers);
         }

@@ -1,53 +1,49 @@
-const { SearchFilter } = require('../models/JobSearch');
-const fs = require('fs').promises;
+const JobSearch = require('../models/JobSearch');
 
-async function readJSON(filename) {
-    try {
-        const data = await fs.readFile(filename, 'utf8');
-        return JSON.parse(data);
-    } catch (err) {
-        console.error(err);
-        throw err;
+// Array of jobs
+const jobs = [
+    new Job(1, 'Chef'),
+    new Job(2, 'Web Developer'),
+    new Job(3, 'Zoo Keeper'),
+    new Job(4, 'Tuition Teacher'),
+    new Job(5, 'Sports Teacher'),
+    new Job(6, 'Personal Assistant'),
+    new Job(7, 'Bus Driver'),
+    new Job(8, 'Grocery Sales'),
+    new Job(9, 'Manager'),
+    new Job(10, 'Kpop Idol Manager')
+];
+
+// Search function using the Job model
+function performSearch(query, sortBy = 'relevance') {
+    if (!query) {
+        // Return all jobs or handle it as needed
+        return jobs;
     }
+
+    const lowercasedQuery = query.toLowerCase();
+    const results = jobs.filter(job => job.title.toLowerCase().includes(lowercasedQuery));
+
+    if (sortBy === 'relevance') {
+        // Custom sorting logic based on relevance
+        results.sort((a, b) => {
+            const aIncludes = a.title.toLowerCase().includes(lowercasedQuery);
+            const bIncludes = b.title.toLowerCase().includes(lowercasedQuery);
+
+            if (aIncludes && !bIncludes) {
+                return -1;
+            } else if (!aIncludes && bIncludes) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+    } else if (sortBy === 'alphabetical') {
+        // Sort alphabetically
+        results.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    return results;
 }
 
-async function writeJSON(object, filename) {
-    try {
-        const allObjects = await readJSON(filename);
-        allObjects.push(object);
-        await fs.writeFile(filename, JSON.stringify(allObjects), 'utf8');
-        return allObjects;
-    } catch (err) {
-        console.error(err);
-        throw err;
-    }
-}
-
-async function searchJobs(filters) {
-    const allJobs = await readJSON('utils/JobFilter.json');
-    let searchedJobs = allJobs;
-
-    if (filters.title) {
-        searchedJobs = searchedJobs.filter((job) => job.title.toLowerCase().includes(filters.title.toLowerCase()));
-    }
-
-    if (filters.location) {
-        searchedJobs = searchedJobs.filter((job) => job.location.toLowerCase().includes(filters.location.toLowerCase()));
-    }
-
-    // if (filters.category) {
-    //     searchedJobs = searchedJobs.filter((job) => job.category.toLowerCase().includes(filters.category.toLowerCase()));
-    // }
-
-    // if (filters.minSalary) {
-    //     searchedJobs = searchedJobs.filter((job) => job.salary >= filters.minSalary);
-    // }
-
-    if (filters.employmentType) {
-        searchedJobs = searchedJobs.filter((job) => job.employmentType.toLowerCase().includes(filters.employmentType.toLowerCase()));
-    }
-
-    return searchedJobs;
-}
-
-module.exports = { readJSON, writeJSON, searchJobs };
+module.exports = { performSearch };

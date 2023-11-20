@@ -12,8 +12,15 @@ app.use(express.static("./public"));
 const { JobFilter } = require('./utils/JobSearchUtil')
 app.get('/filterJobs', JobFilter);
 
-const { register } = require('./utils/UserUtil')
+const { register } = require('./utils/UserUtil');
+const { JobSearch } = require('./models/JobSearch');
 app.post('/register', register);
+
+app.get('/search', (req, res) => { 
+    const query = req.query.q; 
+    const results = JobSearch(query); 
+    res.json({ results });
+});
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);

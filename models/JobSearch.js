@@ -1,8 +1,10 @@
 class JobSearch {
-    static SearchJobs(jobs, searchCriteria) {
-        return jobs.search(job => {
-            return job.category === searchCriteria.category;
-        });
+    constructor(id, title) {
+        this.id = id;
+        this.title = title;
     }
+
+    // Other methods or properties related to the Job model
 }
+
 module.exports = { JobSearch };

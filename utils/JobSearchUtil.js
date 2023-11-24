@@ -41,6 +41,21 @@ function performSearch(query, sortBy = 'relevance') {
     } else if (sortBy === 'alphabetical') {
         // Sort alphabetically
         results.sort((a, b) => a.title.localeCompare(b.title));
+    } else {
+        // Handle invalid sortBy options (you can throw an error or default to a specific option)
+        console.error(`Invalid sortBy option: ${sortBy}. Defaulting to 'relevance'.`);
+        results.sort((a, b) => {
+            const aIncludes = a.title.toLowerCase().includes(lowercasedQuery);
+            const bIncludes = b.title.toLowerCase().includes(lowercasedQuery);
+
+            if (aIncludes && !bIncludes) {
+                return -1;
+            } else if (!aIncludes && bIncludes) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
     }
 
     return results;

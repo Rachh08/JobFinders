@@ -2,16 +2,16 @@ const JobSearch = require('../models/JobSearch');
 
 // Array of jobs
 const jobs = [
-    new Job(1, 'Chef'),
-    new Job(2, 'Web Developer'),
-    new Job(3, 'Zoo Keeper'),
-    new Job(4, 'Tuition Teacher'),
-    new Job(5, 'Sports Teacher'),
-    new Job(6, 'Personal Assistant'),
-    new Job(7, 'Bus Driver'),
-    new Job(8, 'Grocery Sales'),
-    new Job(9, 'Manager'),
-    new Job(10, 'Kpop Idol Manager')
+    new JobSearch(1, 'Chef'),
+    new JobSearch(2, 'Web Developer'),
+    new JobSearch(3, 'Zoo Keeper'),
+    new JobSearch(4, 'Tuition Teacher'),
+    new JobSearch(5, 'Sports Teacher'),
+    new JobSearch(6, 'Personal Assistant'),
+    new JobSearch(7, 'Bus Driver'),
+    new JobSearch(8, 'Grocery Sales'),
+    new JobSearch(9, 'Manager'),
+    new JobSearch(10, 'Kpop Idol Manager')
 ];
 
 // Search function using the Job model

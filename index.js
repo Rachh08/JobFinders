@@ -9,9 +9,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
-const { JobFilter } = require('./utils/JobSearchUtil')
-app.get('/filterJobs', JobFilter);
-
 //const { JobFilter } = require('./utils/JobSearchUtil')
 //app.get('/filterJobs', JobFilter);
 
@@ -38,6 +35,7 @@ app.delete('/delete-user/:name', deleteUser);
 
 const { updateUserdetails } = require('./utils/UserUtil')
 app.post('/update-userdetails', updateUserdetails);
+
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);

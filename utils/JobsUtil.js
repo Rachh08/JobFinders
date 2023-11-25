@@ -12,14 +12,18 @@ async function viewJobs(req, res) {
 
 async function searchJobs(req, res) {
     try {
-        // Assuming you have a query parameter in the request for the job search
-        const query = req.query.q;
+        // Assuming you have the search query in the request body
+        const query = req.body.q;
+
+        if (!query) {
+            return res.status(400).json({ message: "Search query is required in the request body." });
+        }
 
         // Read jobs from the JSON file
         const allJobs = await readJSON('utils/jobs.json');
 
-        // Filter jobs based on the query
-        const searchResults = allJobs.filter(job => job.title.toLowerCase().includes(query.toLowerCase()));
+        // Filter jobs based on the query matching jobName
+        const searchResults = allJobs.filter(job => job.jobName.toLowerCase().includes(query.toLowerCase()));
 
         return res.status(200).json(searchResults);
     } catch (error) {

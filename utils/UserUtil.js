@@ -8,8 +8,6 @@ async function readJSON(filename) {
 
     } catch (err) { console.error(err); throw err; }
 }
-        } catch (err) { console.error(err); throw err; }
-}
 
 async function writeJSON(object, filename) {
     try {
@@ -37,13 +35,6 @@ async function register(req, res) {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
-
-module.exports = { readJSON, writeJSON, register };
-
-        await fs.writeFile(filename, JSON.stringify(allObjects), 'utf8');
-        return allObjects;
-        } catch (err) { console.error(err); throw err; }
 }
 
 async function updateUserdetails(req, res) {
@@ -92,7 +83,7 @@ async function deleteUser(req, res) {
 
 
 module.exports = {
-    readJSON, writeJSON, updateUserdetails, deleteUser
-    };
+    readJSON, writeJSON, register, updateUserdetails, deleteUser
+};
     
 

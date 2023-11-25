@@ -3,7 +3,7 @@ const fs = require('fs');
 const JobSearchUtil = require('./JobSearchUtil');
 
 // Read job data from the JSON file
-const jobData = JSON.parse(fs.readFileSync('jobs.json', 'utf8'));
+const jobData = JSON.parse(fs.readFileSync('jobs', 'utf8'));
 
 // Create a JobSearchUtil instance with job data
 const jobSearchUtil = new JobSearchUtil(jobData);

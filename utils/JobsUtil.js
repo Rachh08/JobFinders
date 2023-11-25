@@ -19,6 +19,11 @@ async function searchJobs(req, res) {
             return res.status(400).json({ message: "Search query is required in the request body." });
         }
 
+        // Check if the query contains only letters
+        if (!/^[a-zA-Z]+$/.test(query)) {
+            return res.status(400).json({ message: "Search query should only contain letters." });
+        }
+
         // Read jobs from the JSON file
         const allJobs = await readJSON('utils/jobs.json');
 

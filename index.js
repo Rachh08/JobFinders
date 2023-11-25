@@ -25,15 +25,14 @@ app.post('/register', register);
     res.json({ results });
 });*/
 
-//const { login } = require('./utils/UserUtil')
-//app.post('/login', login);
-
+const { login } = require('./utils/UserUtil')
+app.post('/login', login);
 
 const { viewJobs } = require('./utils/JobsUtil')
 app.get('/view', viewJobs);
 
 const { searchJobs } = require('./utils/JobsUtil')
-app.get('/search', searchJobs);
+app.post('/search-jobs', searchJobs);
 
 const { deleteUser } = require('./utils/UserUtil')
 app.delete('/delete-user/:name', deleteUser);

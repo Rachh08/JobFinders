@@ -1,14 +1,9 @@
 class User {
     constructor(name, email, password, mobile) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.mobile = mobile;
-
-        const timestamp = new Date().getTime();
-        const random = Math.floor(Math.random() * 1000);
-        this.id = timestamp + "" + random.toString().padStart(3, '0');
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.mobile = mobile;
     }
-}
-
-module.exports = { User };
+    }
+    module.exports = { User };

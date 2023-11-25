@@ -30,7 +30,11 @@ async function searchJobs(req, res) {
         // Filter jobs based on the query matching jobName
         const searchResults = allJobs.filter(job => job.jobName.toLowerCase().includes(query.toLowerCase()));
 
-        return res.status(200).json(searchResults);
+        if (searchResults.length > 0) {
+            return res.status(200).json(searchResults);
+        } else {
+            return res.status(404).json({ message: "No matching jobs found." });
+        }
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

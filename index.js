@@ -28,8 +28,10 @@ app.post('/login', login);
 
 
 const { viewJobs } = require('./utils/JobsUtil')
-app.get('/view-jobs', viewJobs);
+app.get('/view', viewJobs);
 
+const { deleteUser } = require('./utils/UserUtil')
+app.delete('/delete-user/:name', deleteUser);
 
 app.get('/', (req, res) => {
 res.sendFile(__dirname + "/public/" + startPage);

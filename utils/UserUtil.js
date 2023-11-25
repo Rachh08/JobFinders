@@ -35,7 +35,7 @@ async function updateUserdetails(req, res) {
 
 async function deleteUser(req, res) {
     try {
-        const usernameToDelete = req.body.name;
+        const usernameToDelete = req.params.name;
         const enteredPassword = req.body.password;
 
         const allUsers = await readJSON('utils/users.json');

@@ -32,7 +32,10 @@ async function login(req, res) {
             if (currUser.email == email && currUser.password == password)
             validCredentials = true;
         }
-        if (validCredentials) {
+
+        if (validCredentials || !email.includes('@') || !email.includes('.com') || password.length < 8 
+        || !/(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(password)
+        ) {
             return res.status(201).json({ message: 'Login successful!' });
         } else {
         return res.status(500).json({ message: 'Invalid credentials!' });

@@ -121,8 +121,8 @@ async function deleteUser(req, res) {
 
 
 module.exports = {
-    readJSON, writeJSON, updateUserdetails, deleteUser, login, register
- };
+    readJSON, writeJSON, login, register, updateUserdetails, deleteUser
+};
     
 
 

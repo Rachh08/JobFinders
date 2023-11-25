@@ -32,6 +32,8 @@ app.post('/login', login);
 const { viewJobs } = require('./utils/JobsUtil')
 app.get('/view', viewJobs);
 
+const { searchJobs } = require('./utils/JobsUtil')
+app.get('/search', searchJobs);
 
 const { deleteUser } = require('./utils/UserUtil')
 app.delete('/delete-user/:name', deleteUser);

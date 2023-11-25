@@ -2,6 +2,7 @@ const { readJSON, writeJSON } = require('./UserUtil')
 const { Job } = require('../models/jobs.js');
 
 
+
 async function addJobs(req, res) {
     try {
     const name = req.body.name;
@@ -16,7 +17,6 @@ async function addJobs(req, res) {
     return res.status(500).json({ message: error.message });
     }
     }
-
 
 async function viewJobs(req, res) {
     try {

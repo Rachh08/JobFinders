@@ -1,4 +1,4 @@
-const { User } = require('../models/User');
+const { User } = require('../models/User')
 const fs = require('fs').promises;
 
 async function readJSON(filename) {
@@ -33,13 +33,13 @@ async function login(req, res) {
             validCredentials = true;
         }
 
-        if (validCredentials || !email.includes('@') || !email.includes('.com') || password.length < 8 
-        || !/(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(password)) 
+        if (validCredentials) 
         {
             return res.status(201).json({ message: 'Login successful!' });
-        } else {
+        } 
+        else {
         return res.status(500).json({ message: 'Invalid credentials!' });
-        }
+        } 
     } catch (error) {
     return res.status(500).json({ message: error.message });
     }

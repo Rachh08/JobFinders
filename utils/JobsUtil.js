@@ -1,5 +1,5 @@
 const { readJSON, writeJSON } = require('./UserUtil')
-const { Job } = require('../models/Job');
+const { Job } = require('../models/jobs.js');
 
 async function viewJobs(req, res) {
     try {

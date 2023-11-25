@@ -8,7 +8,6 @@ async function readJSON(filename) {
     } catch (err) { console.error(err); throw err; }
 }
 
-
 async function writeJSON(object, filename) {
     try {
         const allObjects = await readJSON(filename);
@@ -34,7 +33,7 @@ async function login(req, res) {
             if (currUser.email == email && currUser.password == password)
             validCredentials = true;
         }
-        if (validCredentials) {
+        if (validCredentials, || !email.includes('.com') || password.length < 8 ||!/(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(password) {
             return res.status(201).json({ message: 'Login successful!' });
         } else {
         return res.status(500).json({ message: 'Invalid credentials!' });
@@ -61,13 +60,6 @@ async function register(req, res) {
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
-
-module.exports = { readJSON, writeJSON, register };
-
-        await fs.writeFile(filename, JSON.stringify(allObjects), 'utf8');
-        return allObjects;
-        } catch (err) { console.error(err); throw err; }
 }
 
 async function updateUserdetails(req, res) {
@@ -117,7 +109,7 @@ async function deleteUser(req, res) {
 
 module.exports = {
     readJSON, writeJSON, updateUserdetails, deleteUser, login, register
-    };
+ };
     
 
 

@@ -1,64 +1,48 @@
-/*const JobSearch = require('../models/JobSearch');
+const readline = require('readline');
+const fs = require('fs');
+const JobSearchUtil = require('./JobSearchUtil');
 
-// Array of jobs
-const jobs = [
-    new JobSearch(1, 'Chef'),
-    new JobSearch(2, 'Web Developer'),
-    new JobSearch(3, 'Zoo Keeper'),
-    new JobSearch(4, 'Tuition Teacher'),
-    new JobSearch(5, 'Sports Teacher'),
-    new JobSearch(6, 'Personal Assistant'),
-    new JobSearch(7, 'Bus Driver'),
-    new JobSearch(8, 'Grocery Sales'),
-    new JobSearch(9, 'Manager'),
-    new JobSearch(10, 'Kpop Idol Manager')
-];
+// Read job data from the JSON file
+const jobData = JSON.parse(fs.readFileSync('jobs.json', 'utf8'));
 
-// Search function using the Job model
-function performSearch(query, sortBy = 'relevance') {
-    if (!query) {
-        // Return all jobs or handle it as needed
-        return jobs;
-    }
+// Create a JobSearchUtil instance with job data
+const jobSearchUtil = new JobSearchUtil(jobData);
 
-    const lowercasedQuery = query.toLowerCase();
-    const results = jobs.filter(job => job.title.toLowerCase().includes(lowercasedQuery));
+// Create a readline interface for user input
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-    if (sortBy === 'relevance') {
-        // Custom sorting logic based on relevance
-        results.sort((a, b) => {
-            const aIncludes = a.title.toLowerCase().includes(lowercasedQuery);
-            const bIncludes = b.title.toLowerCase().includes(lowercasedQuery);
+// Function to search and print job details based on user input
+function searchJobs() {
+    rl.question('Enter the job name to search: ', (userInput) => {
+        const lowercasedInput = userInput.toLowerCase(); 
 
-            if (aIncludes && !bIncludes) {
-                return -1;
-            } else if (!aIncludes && bIncludes) {
-                return 1;
-            } else {
-                return 0;
-            }
+        const searchResults = jobSearchUtil.getAllJobs().filter(job => {
+            const lowercasedJobName = job.jobName.toLowerCase(); // Convert job name to lowercase
+            return lowercasedJobName.includes(lowercasedInput);
         });
-    } else if (sortBy === 'alphabetical') {
-        // Sort alphabetically
-        results.sort((a, b) => a.title.localeCompare(b.title));
-    } else {
-        // Handle invalid sortBy options 
-        console.error(`Invalid sortBy option: ${sortBy}. Defaulting to 'relevance'.`);
-        results.sort((a, b) => {
-            const aIncludes = a.title.toLowerCase().includes(lowercasedQuery);
-            const bIncludes = b.title.toLowerCase().includes(lowercasedQuery);
 
-            if (aIncludes && !bIncludes) {
-                return -1;
-            } else if (!aIncludes && bIncludes) {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
-    }
+        if (searchResults.length > 0) {
+            console.log('Search Results:');
+            searchResults.forEach(job => {
+                console.log(`Job Name: ${job.jobName}`);
+                console.log(`Company: ${job.company}`);
+                console.log(`Location: ${job.location}`);
+                console.log(`Description: ${job.description}`);
+                console.log(`Contact: ${job.contact}`);
+                console.log(`ID: ${job.id}`);
+                console.log('-----------------------');
+            });
+        } else {
+            console.log('No matching jobs found.');
+        }
 
-    return results;
+        // Close the readline interface
+        rl.close();
+    });
 }
 
-module.exports = { performSearch };*/
+// Call the searchJobs function to start the search
+searchJobs();

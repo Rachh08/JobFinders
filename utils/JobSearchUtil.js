@@ -1,35 +1,48 @@
-const JobSearch = require('../models/JobSearch');
+const readline = require('readline');
+const fs = require('fs');
+const JobSearchUtil = require('./JobSearchUtil');
 
-// Search function using the Job model
-function performSearch(query, sortBy = 'relevance') {
-    if (!query) {
-        // Return all jobs 
-        return jobs;
-    }
+// Read job data from the JSON file
+const jobData = JSON.parse(fs.readFileSync('jobs.json', 'utf8'));
 
-    const lowercasedQuery = query.toLowerCase();
-    const results = jobs.filter(job => job.title.toLowerCase().includes(lowercasedQuery));
+// Create a JobSearchUtil instance with job data
+const jobSearchUtil = new JobSearchUtil(jobData);
 
-    if (sortBy === 'relevance') {
-        // Custom sorting logic based on relevance
-        results.sort((a, b) => {
-            const aIncludes = a.title.toLowerCase().includes(lowercasedQuery);
-            const bIncludes = b.title.toLowerCase().includes(lowercasedQuery);
+// Create a readline interface for user input
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-            if (aIncludes && !bIncludes) {
-                return -1;
-            } else if (!aIncludes && bIncludes) {
-                return 1;
-            } else {
-                return 0;
-            }
+// Function to search and print job details based on user input
+function searchJobs() {
+    rl.question('Enter the job to search: ', (userInput) => {
+        const lowercasedInput = userInput.toLowerCase(); // Convert user input to lowercase
+
+        const searchResults = jobSearchUtil.getAllJobs().filter(job => {
+            const lowercasedJobName = job.jobName.toLowerCase(); // Convert job name to lowercase
+            return lowercasedJobName.includes(lowercasedInput);
         });
-    } else if (sortBy === 'alphabetical') {
-        // Sort alphabetically
-        results.sort((a, b) => a.title.localeCompare(b.title));
-    }
 
-    return results;
+        if (searchResults.length > 0) {
+            console.log('Search Results:');
+            searchResults.forEach(job => {
+                console.log(`Job Name: ${job.jobName}`);
+                console.log(`Company: ${job.company}`);
+                console.log(`Location: ${job.location}`);
+                console.log(`Description: ${job.description}`);
+                console.log(`Contact: ${job.contact}`);
+                console.log(`ID: ${job.id}`);
+                console.log('-----------------------');
+            });
+        } else {
+            console.log('No matching jobs found.');
+        }
+
+        // Close the readline interface
+        rl.close();
+    });
 }
 
-module.exports = { performSearch };
+// Call the searchJobs function to start the search
+searchJobs();

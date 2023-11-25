@@ -23,7 +23,7 @@ async function updateUserdetails(req, res) {
     const password = req.body.password;
     const mobile = req.body.mobile;
     
-    const updateUser = update User(password, mobile);
+    const updateUser = updateUser(password, mobile);
     const updateUserdetails = await writeJSON(updateUser, 'utils/users.json');
     return res.status(201).json(updateUser);
     } 

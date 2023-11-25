@@ -12,6 +12,9 @@ app.use(express.static("./public"));
 const { updateUserdetails } = require('./utils/UserUtil')
 app.post('/update-userdetails', updateUserdetails);
 
+const { Filter } = require('./utils/FilterUtil')
+app.get('/Filter', Filter);
+
 app.get('/', (req, res) => {
 res.sendFile(__dirname + "/public/" + startPage);
 })

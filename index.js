@@ -34,9 +34,6 @@ app.post('/update-userdetails', updateUserdetails);
 const { searchJobs } = require('./utils/JobSearchUtil')
 app.post('/search', searchJobs);
 
-const { register } = require('./utils/UserUtil')
-app.post('/register', register); 
-
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);
 })

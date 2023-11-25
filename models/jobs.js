@@ -1,6 +1,6 @@
 class Job {
     constructor(jobName, company, location, description, contact) {
-        this.jobName = jobNameame;
+        this.jobName = jobName;
         this.company = company;
         this.location = location;
         this.description = description;

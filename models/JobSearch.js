@@ -1,10 +1,13 @@
 class JobSearch {
-    constructor(id, title) {
-        this.id = id;
-        this.title = title;
+    constructor(jobName, company) {
+        this.jobName = jobName;
+        this.company = company;
+        this.location = location;
+        this.description = description;
+        this.contact = contact;
+
     }
 
-    // Other methods or properties related to the Job model
 }
 
 module.exports = { JobSearch };

@@ -31,6 +31,11 @@ app.get('/view-jobs', viewJobs);
 const { updateUserdetails } = require('./utils/UserUtil')
 app.post('/update-userdetails', updateUserdetails);
 
+const { searchJobs } = require('./utils/JobSearchUtil')
+app.post('/search', searchJobs);
+
+const { register } = require('./utils/UserUtil')
+app.post('/register', register); 
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);
@@ -41,5 +46,4 @@ app.listen(PORT, function () {
     console.log(`Demo project at: ${PORT}!`);
 });
 
-console.log(`Demo project at: ${PORT}!`); });
 

@@ -10,6 +10,22 @@ app.use(bodyParser.json());
 app.use(express.static("./public"));
 
 
+//const { JobFilter } = require('./utils/JobSearchUtil')
+//app.get('/filterJobs', JobFilter);
+
+const { register } = require('./utils/UserUtil');
+app.post('/register', register);
+
+//const { JobSearch } = require('./models/JobSearch');
+/**app.get('/search', (req, res) => { 
+    const query = req.query.q; 
+    const results = JobSearch(query); 
+    res.json({ results });
+});*/
+
+const { login } = require('./utils/UserUtil')
+app.post('/login', login);
+
 
 const { viewJobs } = require('./utils/JobsUtil')
 app.get('/view-jobs', viewJobs);

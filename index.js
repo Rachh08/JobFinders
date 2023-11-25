@@ -9,12 +9,42 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
+//const { JobFilter } = require('./utils/JobSearchUtil')
+//app.get('/filterJobs', JobFilter);
+
+const { register } = require('./utils/UserUtil');
+app.post('/register', register);
+
+//const { JobSearch } = require('./models/JobSearch');
+/**app.get('/search', (req, res) => { 
+    const query = req.query.q; 
+    const results = JobSearch(query); 
+    res.json({ results });
+});*/
+
 const { login } = require('./utils/UserUtil')
 app.post('/login', login);
 
+
+const { viewJobs } = require('./utils/JobsUtil')
+app.get('/view', viewJobs);
+
+
+const { deleteUser } = require('./utils/UserUtil')
+app.delete('/delete-user/:name', deleteUser);
+
+const { updateUserdetails } = require('./utils/UserUtil')
+app.post('/update-userdetails', updateUserdetails);
+
+
 app.get('/', (req, res) => {
-res.sendFile(__dirname + "/public/" + startPage);
+    res.sendFile(__dirname + "/public/" + startPage);
 })
 
 app.listen(PORT, function () {
-console.log(`Demo project at: ${PORT}!`); });
+
+    console.log(`Demo project at: ${PORT}!`);
+});
+
+
+

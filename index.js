@@ -9,11 +9,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
-const { JobFilter } = require('./utils/JobSearchUtil')
-app.get('/filterJobs', JobFilter);
-
 const { register } = require('./utils/UserUtil');
-const { JobSearch } = require('./models/JobSearch');
+
 app.post('/register', register);
 
 app.get('/search', (req, res) => { 
@@ -30,9 +27,6 @@ app.get('/view-jobs', viewJobs);
 
 const { updateUserdetails } = require('./utils/UserUtil')
 app.post('/update-userdetails', updateUserdetails);
-
-const { searchJobs } = require('./utils/JobSearchUtil')
-app.post('/search', searchJobs);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);

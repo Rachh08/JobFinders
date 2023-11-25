@@ -22,10 +22,24 @@ app.get('/search', (req, res) => {
     res.json({ results });
 });
 
+const { login } = require('./utils/UserUtil')
+app.post('/login', login);
+
+const { viewJobs } = require('./utils/JobsUtil')
+app.get('/view-jobs', viewJobs);
+
+const { updateUserdetails } = require('./utils/UserUtil')
+app.post('/update-userdetails', updateUserdetails);
+
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);
 })
 
 app.listen(PORT, function () {
+
     console.log(`Demo project at: ${PORT}!`);
 });
+
+console.log(`Demo project at: ${PORT}!`); });
+

@@ -1,4 +1,4 @@
-const JobSearch = require('../models/JobSearch');
+/*const JobSearch = require('../models/JobSearch');
 
 // Array of jobs
 const jobs = [
@@ -42,7 +42,7 @@ function performSearch(query, sortBy = 'relevance') {
         // Sort alphabetically
         results.sort((a, b) => a.title.localeCompare(b.title));
     } else {
-        // Handle invalid sortBy options (you can throw an error or default to a specific option)
+        // Handle invalid sortBy options 
         console.error(`Invalid sortBy option: ${sortBy}. Defaulting to 'relevance'.`);
         results.sort((a, b) => {
             const aIncludes = a.title.toLowerCase().includes(lowercasedQuery);
@@ -61,4 +61,4 @@ function performSearch(query, sortBy = 'relevance') {
     return results;
 }
 
-module.exports = { performSearch };
+module.exports = { performSearch };*/

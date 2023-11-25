@@ -20,6 +20,10 @@ async function register(req, res) {
         const password = req.body.password;
         const name = req.body.name;
         const mobile = req.body.mobile;
+
+        // Check if email includes '@' and '.com', Check if password length is less than 8 characters, 
+        // at least one uppercase letter and one special character, Check if name contains only letters, 
+        // Check if mobile is not an empty string or contains only whitespace, Check if mobile is exactly 8 digits
         if (!email.includes('@') || !email.includes('.com') || password.length < 8 ||!/(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(password)
         ||!/^[a-zA-Z]+$/.test(name) ||!mobile.trim()|| !/^\d{8}$/.test(mobile)) {
             return res.status(500).json({ message: 'Validation error' });

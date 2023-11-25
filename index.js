@@ -27,6 +27,7 @@ app.delete('/delete-user/:name', deleteUser);
 const { updateUserdetails } = require('./utils/UserUtil')
 app.post('/update-userdetails', updateUserdetails);
 
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);
 })

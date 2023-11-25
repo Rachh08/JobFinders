@@ -19,7 +19,7 @@ async function writeJSON(object, filename) {
 }
 
 async function login(req, res) {
-   try {
+    try {
         const email = req.body.email;
         const password = req.body.password;
 
@@ -34,8 +34,8 @@ async function login(req, res) {
         }
 
         if (validCredentials || !email.includes('@') || !email.includes('.com') || password.length < 8 
-        || !/(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(password)
-        ) {
+        || !/(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(password)) 
+        {
             return res.status(201).json({ message: 'Login successful!' });
         } else {
         return res.status(500).json({ message: 'Invalid credentials!' });
@@ -46,5 +46,5 @@ async function login(req, res) {
 }
 
 module.exports = {
-readJSON, writeJSON, login
+    readJSON, writeJSON, login
 };

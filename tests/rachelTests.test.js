@@ -1,7 +1,7 @@
 const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const fs = require('fs').promises;
-const { register, login } = require('../utils/UserUtil');
+const { register } = require('../utils/UserUtil');
 
 describe('Testing Register Function', () => {
     const usersFilePath = 'utils/users.json';
@@ -31,21 +31,17 @@ describe('Testing Register Function', () => {
                 return this;
             },
             json: function (data) {
-                if (data.message) {
-                    // If there is a 'message' property, assume it's an error response
-                    expect(data.message).to.equal('Register successful!');
-                } else {
-                    // If there is no 'message' property, assume it's a successful registration
-                    expect(data).to.have.lengthOf(orgContent.length + 1);
-                    expect(data[orgContent.length].email).to.equal(req.body.email);
-                    expect(data[orgContent.length].password).to.equal(req.body.password);
-                    expect(data[orgContent.length].name).to.equal(req.body.name);
-                    expect(data[orgContent.length].mobile).to.equal(req.body.mobile);
-                }
+                // Check for both error response and successful registration
+                expect(data).to.have.property('message').to.equal('Register successful!');
+                expect(data).to.have.lengthOf(orgContent.length + 1);
+                expect(data[orgContent.length].email).to.equal(req.body.email);
+                expect(data[orgContent.length].password).to.equal(req.body.password);
+                expect(data[orgContent.length].name).to.equal(req.body.name);
+                expect(data[orgContent.length].mobile).to.equal(req.body.mobile);
             },
         };
-    
+
         // Call your register function
         await register(req, res);
     });
-})    
+});

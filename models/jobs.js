@@ -5,6 +5,7 @@ class Job {
         this.location = location;
         this.description = description;
         this.contact = contact;
+        
 
         //Creating Unique Id for each job
         const timestamp = new Date().getTime();

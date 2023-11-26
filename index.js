@@ -11,22 +11,28 @@ app.use(express.static("./public"));
 
 const { register } = require('./utils/UserUtil');
 
-app.post('/register', register);
+const { register } = require('./utils/UserUtil');
 
-app.get('/search', (req, res) => { 
-    const query = req.query.q; 
-    const results = JobSearch(query); 
-    res.json({ results });
-});
+app.post('/register', register);
 
 const { login } = require('./utils/UserUtil')
 app.post('/login', login);
 
-const { viewJobs } = require('./utils/JobsUtil')
-app.get('/view-jobs', viewJobs);
+const { addJobs } = require('./utils/JobsUtil')
+app.post('/add-job', addJobs);
 
-const { updateUserdetails } = require('./utils/UserUtil')
-app.post('/update-userdetails', updateUserdetails);
+const { viewJobs } = require('./utils/JobsUtil')
+app.get('/view', viewJobs);
+
+const { searchJobs } = require('./utils/JobsUtil')
+app.post('/search-jobs', searchJobs);
+
+const { updateUser } = require('./utils/UserUtil')
+app.put('/updateuser/:id', updateUser);
+
+const { deleteUser } = require('./utils/UserUtil')
+app.delete('/delete-user/:name', deleteUser);
+
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);

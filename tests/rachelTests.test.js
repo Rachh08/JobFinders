@@ -8,15 +8,26 @@ describe('Testing Register Function', () => {
     let orgContent = '';
 
     beforeEach(async () => {
-        orgContent = await fs.readFile(usersFilePath, 'utf8');
-        orgContent = JSON.parse(orgContent);
+        try {
+            orgContent = await fs.readFile(usersFilePath, 'utf8');
+            orgContent = JSON.parse(orgContent);
+        } catch (error) {
+            // Handle error (e.g., log it, throw it, etc.)
+            console.error('Error reading file:', error);
+        }
     });
 
     afterEach(async () => {
-        await fs.writeFile(usersFilePath, JSON.stringify(orgContent), 'utf8');
+        try {
+            await fs.writeFile(usersFilePath, JSON.stringify(orgContent), 'utf8');
+        } catch (error) {
+            // Handle error (e.g., log it, throw it, etc.)
+            console.error('Error writing file:', error);
+        }
     });
 
-    it('Should register a new user successfully', async () => {
+    it('Should register a new user successfully and return the correct response', async () => {
+        // Test implementation
         const req = {
             body: {
                 email: 'rachel@gmail.com',

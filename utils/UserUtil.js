@@ -137,39 +137,34 @@ async function updateUser(req, res) {
                 edit = true;
             }   
         }
-        //to update the password and mobile 
-       if (edit) {
-            await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');
-           return res.status(201).json({ message: 'User details has been successfully updated!' });
-      }  //if password exceeds 8 digits
+        //if password exceeds 8 digits
         if ( password.length > 8){
-            await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');
             return res.status(500).json({message: "Password should not have more than 8 digits!"});
         }  //if password does not consist of uppercase  
         if ( !/(?=.*[A-Za-z])(?=.*[!@#$%^&*])/.test(password)) {
-            await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');
             return res.status(500).json({message: "Password should contain one upper case letter and special character and must not have numbers!"})
         }   
-        
         // if mobile number consist of letter 
         if ( !/^[0-9]/.test(mobile)) {
-           await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');
            return res.status(500).json({message: "Mobile number should contain only numbers!"});
         }
         //if  mobile number exceeds 8 digits
         if ( mobile.length > 8){
-            await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');
             return res.status(500).json({message: "Mobile Number should not have more than 8 digits "});
         }  
          //if user does not fill all input 
         if (!mobile || !password) {
-            await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');
             return res.status(400).json({ message: 'All input fields must be filled!' });
-        } 
+        }  //to update the password and mobile  
+        if (edit) {
+            await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');
+            return res.status(201).json({ message: 'User details has been successfully updated!' });
+       }
         else {
             return res.status(201).json({ message: 'User details is unsuccessful!' });
         }
     }
+    
     catch (error) {
         return res.status(500).json({ message: error.message });
     }

@@ -97,22 +97,7 @@ async function register(req, res) {
         const updatedUsers = await writeJSON(newUser, 'utils/users.json');
         return res.status(201).json(updatedUsers);
     } catch (error) {
-      
-    //     // Check if all required fields are filled in
-    //     if (!email || !password || !name || !mobile) {
-    //         return res.status(400).json({ message: 'All fields are required for registration.' });
-    //     }
-
-    //     if (!email.includes('@') || !email.includes('.com') || password.length < 8 ||!/(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(password)
-    //     ||!/^[a-zA-Z]+$/.test(name) ||!mobile.trim()|| !/^\d{8}$/.test(mobile)) {
-    //         return res.status(500).json({ message: 'Validation error' });
-    //     } else {
-    //         const newUser = new User(email, password, name, mobile);
-    //         const updatedUsers = await writeJSON(newUser, 'utils/users.json');
-    //         return res.status(201).json(updatedUsers);
-    //     }
-    // } catch (error) {
-        return res.status(500).json({ message: error.message });
+        return res.status(201).json({ message: error.message });
     }
 
 }
@@ -154,7 +139,7 @@ async function updateUser(req, res) {
         }  
          //if user does not fill all input 
         if (!mobile || !password) {
-            return res.status(400).json({ message: 'All input fields must be filled!' });
+            return res.status(500).json({ message: 'All input fields must be filled!' });
         }  //to update the password and mobile  
         if (edit) {
             await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');

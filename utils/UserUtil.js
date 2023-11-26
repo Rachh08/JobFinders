@@ -62,6 +62,12 @@ async function register(req, res) {
         const password = req.body.password;
         const name = req.body.name;
         const mobile = req.body.mobile;
+
+        // Check if all required fields are filled in
+        if (!email || !password || !name || !mobile) {
+            return res.status(400).json({ message: 'All fields are required for registration.' });
+        }
+
         if (!email.includes('@') || !email.includes('.com') || password.length < 8 ||!/(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(password)
         ||!/^[a-zA-Z]+$/.test(name) ||!mobile.trim()|| !/^\d{8}$/.test(mobile)) {
             return res.status(500).json({ message: 'Validation error' });

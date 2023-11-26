@@ -33,7 +33,7 @@ describe('Testing Register Function', () => {
             json: function (data) {
                 if (data.message) {
                     // If there is a 'message' property, assume it's an error response
-                    expect(data.message).to.equal('Login successful!');
+                    expect(data.message).to.equal('Register successful!');
                 } else {
                     // If there is no 'message' property, assume it's a successful registration
                     expect(data).to.have.lengthOf(orgContent.length + 1);

@@ -62,7 +62,7 @@ async function updateUser(req, res) {
             return res.status(400).json({ message: 'All input fields must be filled!' });
         }  //to update the password and mobile  
         if (edit) {
-             await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');
+            await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');
             return res.status(201).json({ message: 'User details has been successfully updated!' });
        }
         else {

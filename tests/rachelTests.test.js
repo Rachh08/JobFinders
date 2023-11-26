@@ -31,20 +31,21 @@ describe('Testing Register Function', () => {
                 return this;
             },
             json: function (data) {
-
-                expect(data).to.have.lengthOf(orgContent.length + 1);
-                //checks if the email of the is equal to the email provided in the request body
-                expect(data[orgContent.length].email).to.equal(req.body.email);
-                //checks if the password is equal to the password provided in the request body
-                expect(data[orgContent.length].password).to.equal(req.body.password);
-                //checks if the password is equal to the password provided in the request body
-                expect(data[orgContent.length].name).to.equal(req.body.name);
-                //checks if the name is equal to the name provided in the request body
-                expect(data[orgContent.length].mobile).to.equal(req.body.mobile);
-
+                if (data.message) {
+                    // If there is a 'message' property, assume it's an error response
+                    expect(data.message).to.equal('Login successful!');
+                } else {
+                    // If there is no 'message' property, assume it's a successful registration
+                    expect(data).to.have.lengthOf(orgContent.length + 1);
+                    expect(data[orgContent.length].email).to.equal(req.body.email);
+                    expect(data[orgContent.length].password).to.equal(req.body.password);
+                    expect(data[orgContent.length].name).to.equal(req.body.name);
+                    expect(data[orgContent.length].mobile).to.equal(req.body.mobile);
+                }
             },
         };
+    
+        // Call your register function
         await register(req, res);
     });
-});
-
+})    

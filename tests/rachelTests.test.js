@@ -25,13 +25,15 @@ describe('Testing Register Function', () => {
                 mobile: '87821800',
             },
         };
+
         const res = {
             status: function (code) {
+                // Expecting a successful response code
                 expect(code).to.equal(201);
                 return this;
             },
             json: function (data) {
-                // Check for both error response and successful registration
+                // Expecting a successful registration with the correct user details
                 expect(data).to.have.property('message').to.equal('Register successful!');
                 expect(data).to.have.lengthOf(orgContent.length + 1);
                 expect(data[orgContent.length].email).to.equal(req.body.email);

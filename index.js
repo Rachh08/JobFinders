@@ -9,8 +9,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
-const { updateUserdetails } = require('./utils/UserUtil')
-app.put('/update-user/:id', updateUserdetails);
+const { updateUser } = require('./utils/UserUtil')
+app.put('/updateuser/:id', updateUser);
 
 app.get('/', (req, res) => {
 res.sendFile(__dirname + "/public/" + startPage);

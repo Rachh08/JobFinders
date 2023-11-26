@@ -18,7 +18,7 @@ async function writeJSON(object, filename) {
     } catch (err) { console.error(err); throw err; }
 }
 
-async function updateUserdetails(req, res) {
+async function updateUser(req, res) {
     try {
     const id = req.params.id;
     const password = req.body.password;
@@ -75,5 +75,5 @@ async function updateUserdetails(req, res) {
     }
 }
 module.exports = {
-readJSON, writeJSON, updateUserdetails
+readJSON, writeJSON, updateUser
 };

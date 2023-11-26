@@ -25,11 +25,12 @@ app.get('/view', viewJobs);
 const { searchJobs } = require('./utils/JobsUtil')
 app.post('/search-jobs', searchJobs);
 
+const { updateUser } = require('./utils/UserUtil')
+app.put('/updateuser/:id', updateUser);
+
 const { deleteUser } = require('./utils/UserUtil')
 app.delete('/delete-user/:name', deleteUser);
 
-const { updateUserdetails } = require('./utils/UserUtil')
-app.post('/update-userdetails', updateUserdetails);
 
 
 app.get('/', (req, res) => {

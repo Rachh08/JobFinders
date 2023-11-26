@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(express.static("./public"));
 
 const { updateUserdetails } = require('./utils/UserUtil')
-app.put('/update-userdetails/:id', updateUserdetails);
+app.put('/update-user/:id', updateUserdetails);
 
 app.get('/', (req, res) => {
 res.sendFile(__dirname + "/public/" + startPage);

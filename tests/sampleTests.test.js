@@ -12,7 +12,7 @@ describe('User Registration Tests', () => {
             },
         });
         expect(result.status).to.equal(400);
-        expect(result.body).to.have.property('message').to.equal('Validation error');
+        expect(result).to.have.property('body').to.have.property('message').to.equal('Validation error');
     });
 
     it('Should return a validation error for weak password', async () => {
@@ -27,7 +27,7 @@ describe('User Registration Tests', () => {
             },
         });
         expect(result.status).to.equal(500);
-        expect(result.body).to.have.property('message').to.equal('Validation error');
+        expect(result).to.have.property('body').to.have.property('message').to.equal('Validation error');
     });
 
     it('Should successfully register with valid user information', async () => {

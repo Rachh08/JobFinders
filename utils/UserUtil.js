@@ -113,8 +113,8 @@ async function register(req, res) {
         const updatedUsers = await writeJSON(newUser, 'utils/users.json');
         return res.status(201).json(updatedUsers);
     } catch (error) {
-        return res.status(201).json({ message: error.message });
-    }
+        return res.status(500).json({ error: true, message: error.message });
+    }    
 
 }
 

@@ -2,6 +2,7 @@ const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const fs = require('fs').promises;
 const { register } = require('../utils/UserUtil');
+const { searchJobs } = require('../utils/JobsUtil');
 
 describe('Testing Register Function', () => {
     const usersFilePath = 'utils/users.json';

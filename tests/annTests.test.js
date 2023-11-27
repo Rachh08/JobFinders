@@ -111,16 +111,103 @@ describe('Testing Add Job Functions', () => {
 
 });
 
-describe('Delete User Function Testing', ()=>{
-    const userFilePath = 'utils/user.json';
-    var orgContent = "";
+describe('Delete User Function Testing', () => {
+        // Helper function to create a mock user for testing
+        const createMockUser = (name, password) => ({ name, password });
+      
+        // Helper function to create a mock request with parameters
+        const createMockRequest = (name, password) => ({
+          params: { name },
+          body: { password },
+        });
+      
+        // Helper function to create a mock response
+        const createMockResponse = () => {
+          const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.stub(),
+          };
+          return res;
+        };
+      
+        it('should delete user successfully', async () => {
+          // Arrange
+          const mockUser = createMockUser('testUser', 'testPassword');
+          const mockRequest = createMockRequest('testUser', 'testPassword');
+          const mockResponse = createMockResponse();
+      
+          // Mock readJSON to return a list with the mock user
+          sinon.stub(fs, 'readFile').resolves(JSON.stringify([mockUser]));
+      
+          // Act
+          await deleteUser(mockRequest, mockResponse);
+      
+          // Assert
+          sinon.assert.calledWith(mockResponse.status, 200);
+          sinon.assert.calledWith(mockResponse.json, { message: `User 'testUser' deleted successfully.` });
+      
+          // Cleanup
+          sinon.restore();
+        });
+      
+        it('should handle incorrect password', async () => {
+          // Arrange
+          const mockUser = createMockUser('testUser', 'testPassword');
+          const mockRequest = createMockRequest('testUser', 'wrongPassword');
+          const mockResponse = createMockResponse();
+      
+          // Mock readJSON to return a list with the mock user
+          sinon.stub(fs, 'readFile').resolves(JSON.stringify([mockUser]));
+      
+          // Act
+          await deleteUser(mockRequest, mockResponse);
+      
+          // Assert
+          sinon.assert.calledWith(mockResponse.status, 401);
+          sinon.assert.calledWith(mockResponse.json, { message: 'Incorrect password. Deletion failed.' });
+      
+          // Cleanup
+          sinon.restore();
+        });
+      
+        it('should handle user not found', async () => {
+          // Arrange
+          const mockRequest = createMockRequest('nonexistentUser', 'password');
+          const mockResponse = createMockResponse();
+      
+          // Mock readJSON to return an empty list
+          sinon.stub(fs, 'readFile').resolves('[]');
+      
+          // Act
+          await deleteUser(mockRequest, mockResponse);
+      
+          // Assert
+          sinon.assert.calledWith(mockResponse.status, 404);
+          sinon.assert.calledWith(mockResponse.json, { message: 'User \'nonexistentUser\' not found.' });
+      
+          // Cleanup
+          sinon.restore();
+        });
+      
+        it('should handle internal server error', async () => {
+          // Arrange
+          const mockRequest = createMockRequest('testUser', 'testPassword');
+          const mockResponse = createMockResponse();
+      
+          // Mock readJSON to throw an error
+          sinon.stub(fs, 'readFile').rejects(new Error('Internal server error'));
+      
+          // Act
+          await deleteUser(mockRequest, mockResponse);
+      
+          // Assert
+          sinon.assert.calledWith(mockResponse.status, 500);
+          sinon.assert.calledWith(mockResponse.json, { message: 'Internal server error' });
+      
+          // Cleanup
+          sinon.restore();
+        });
+    
 
-    beforeEach(async () => {
-        orgContent = await fs.readFile(userFilePathFilePath, 'utf8');
-        orgContent = JSON.parse(orgContent);
-    });
+});
 
-    afterEach(async () => {
-        await fs.writeFile(userFilePath, JSON.stringify(orgContent), 'utf8');
-    });
-})

@@ -1,113 +1,126 @@
 const { describe, it } = require('mocha');
 const { expect } = require('chai');
+const sinon = require('sinon');
 const fs = require('fs').promises;
-const { deleteUser } = require('../utils/UserUtil')
-const { viewJob, addJobs } = require('../utils/JobsUtil')
+const { readJSON, deleteUser, writeJSON } = require('../utils/UserUtil.js')
+const { viewJobs, addJobs } = require('../utils/JobsUtil.js')
 
-describe('Testing Delete User Function', () => {
-    const userFilePath = 'utils/users.json';
+
+describe('Testing Add Job Functions', () => {
+    const jobFilePath = 'utils/jobs.json';
     var orgContent = "";
 
     beforeEach(async () => {
-        orgContent = await fs.readFile(userFilePath, 'utf8');
+        orgContent = await fs.readFile(jobFilePath, 'utf8');
         orgContent = JSON.parse(orgContent);
     });
 
     afterEach(async () => {
-        orgContent = await fs.writeFile(userFilePath, JSON.stringify(orgContent), 'utf8');
-
+        await fs.writeFile(jobFilePath, JSON.stringify(orgContent), 'utf8');
     });
 
+    it("Should add a new job successfully", async () => {
+        const req = {
+            body: {
+                jobName: " Dancer",
+                company: "Dancers Company",
+                location: "Dance Studio",
+                description: "Dancing and laughing",
+                contact: " shiju@exam.com"
+            },
 
-
-    it("Should delete a user successfully", async () => {
-        // Create a test user to delete
-        const testUser = {
-            body:{
-                name: "testUser",
-                password: "Pas01@#&"
-            }
-            
         };
 
-        // Add the test user to the users.json file
-        await addTestUser(testUser);
-
-        // Call the deleteUser function to delete the test user
-        const response = await deleteUser(testUser.name, testUser.password);
-
-        // Verify the response
-        expect(response.status).to.equal(200);
-        expect(response.body.message).to.equal(`User '${testUser.name}' deleted successfully.`);
-
-        // Verify that the user is deleted from the users.json file
-        const updatedUsers = await readJSON(userFilePath);
-        const deletedUser = updatedUsers.find(user => user.name === testUser.name);
-        expect(deletedUser).to.be.undefined;
-    });
-
-    it("Should handle incorrect password during user deletion", async () => {
-        // Create a test user to delete
-        const testUser = {
-            name: "testUser",
-            password: "testPassword"
+        const res = {
+            status: function (code) {
+                expect(code).to.equal(201);
+                return this;
+            },
+            json: function (data) {
+                expect(data).to.be.an('array');
+            },
         };
 
-        // Add the test user to the users.json file
-        await addTestUser(testUser);
-
-        // Call the deleteUser function with an incorrect password
-        const response = await deleteUser(testUser.name, "incorrectPassword");
-
-        // Verify the response
-        expect(response.status).to.equal(401);
-        expect(response.body.message).to.equal('Incorrect password. Deletion failed.');
-
-        // Verify that the user is not deleted from the users.json file
-        const updatedUsers = await readJSON(userFilePath);
-        const deletedUser = updatedUsers.find(user => user.name === testUser.name);
-        expect(deletedUser).to.exist;
+        await addJobs(req, res);
     });
 
-    it("Should handle user not found during deletion", async () => {
-        // Call the deleteUser function for a non-existent user
-        const response = await deleteUserRequest("nonExistentUser", "somePassword");
 
-        // Verify the response
-        expect(response.status).to.equal(404);
-        expect(response.body.message).to.equal("User 'nonExistentUser' not found.");
+    it('Should handle empty input fields', async () => {
+        const req = {
+            body: {
+                // Empty body, should trigger a 400 status
+            },
+        };
+        const res = {
+            status: function (code) {
+                expect(code).to.equal(400);
+                return this;
+            },
+
+            json: function (data) {
+                expect(data).to.have.property('message').that.includes('All input fields must be filled.');
+            },
+        };
+        await addJobs(req, res);
     });
+    it('Should handle invalid jobName and company fields', async () => {
+        const req = {
+            body: {
+                jobName: 'Invalid@Name123',  // Invalid characters, should trigger a 400 status
+                company: 'Invalid$Company',
+                location: 'Invalid Location',
+                description: 'Some description',
+                contact: 'invalid@email.com',
+            },
+        };
 
-    describe('viewJobs Function', () => {
-        it('Should return all jobs', async () => {
-            const response = await viewJobs({}, {});
-            expect(response.status).to.equal(201); // Assuming you return 201 for success
-            expect(response.body).to.deep.equal(orgJobsContent);
-        });
-
+        const res = {
+            status: function (code) {
+                expect(code).to.equal(400);
+                return this;
+            },
+            json: function (data) {
+                expect(data).to.have.property('message').that.includes('Job name and company must contain alphabets only');
+            },
+        };
+        await addJobs(req, res);
     });
+    it('Should handle invalid contact field', async () => {
+        const req = {
+            body: {
+                jobName: 'Valid Job',
+                company: 'Valid Company',
+                location: 'Valid Location',
+                description: 'Some description',
+                contact: 'invalid-email',  // Invalid email format, should trigger a 400 status
+            },
+        };
 
-    describe('addJobs Function', () => {
-        it('Should add a new job', async () => {
-            const newJob = {
-                jobName: 'Software Developer',
-                company: 'TechCo',
-                location: 'City',
-                description: 'Job description here.',
-                contact: 'contact@techco.com'
-            };
+        const res = {
+            status: function (code) {
+                expect(code).to.equal(400);
+                return this;
+            },
+            json: function (data) {
+                expect(data).to.have.property('message').that.includes('Provide valid contact details: email');
+            },
+        };
 
-            const response = await addJobs({ body: newJob }, {});
-            expect(response.status).to.equal(201); // Assuming you return 201 for success
-
-            // Verify that the new job is added to the jobs.json file
-            const updatedJobs = await fs.readFile(jobsFilePath, 'utf8');
-            const updatedJobsJson = JSON.parse(updatedJobs);
-            expect(updatedJobsJson).to.deep.include(newJob);
-        });
-
-        
+        await addJobs(req, res);
     });
-
 
 });
+
+describe('Delete User Function Testing', ()=>{
+    const userFilePath = 'utils/user.json';
+    var orgContent = "";
+
+    beforeEach(async () => {
+        orgContent = await fs.readFile(userFilePathFilePath, 'utf8');
+        orgContent = JSON.parse(orgContent);
+    });
+
+    afterEach(async () => {
+        await fs.writeFile(userFilePath, JSON.stringify(orgContent), 'utf8');
+    });
+})

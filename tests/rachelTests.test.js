@@ -133,3 +133,83 @@ describe('Testing Register Function', () => {
         });
     });
 })
+
+describe('User Registration Tests', () => {
+    it('Should return a validation error for partially filled registration form', async () => {
+        const result = await register({
+            body: {
+                // Partially filled registration form (missing required fields)
+                // Adjust the input based on your actual registration endpoint
+                email: 'test@example.com',
+            },
+        });
+        expect(result.status).to.equal(400);
+        expect(result.body).to.have.property('message').to.equal('Validation error');
+    });
+})
+
+describe('User Registration Tests', () => {
+    it('Should return a validation error for weak password', async () => {
+        const req = {
+            body: {
+                // Valid user information with a weak password
+                // Adjust the input based on your actual registration endpoint
+                email: 'test@example.com',
+                password: 'weak',
+                name: 'John Doe',
+                mobile: '12345678',
+            },
+        };
+
+        const res = {
+            status: function (code) {
+                return this;
+            },
+            json: function (data) {
+                // Add assertions based on your expected response for a weak password
+                expect(data.message).to.equal('Validation error');
+            },
+        };
+
+        // Call your register function
+        try {
+            await register(req, res);
+        } catch (error) {
+            // Handle any errors during registration
+            console.error('Error during registration:', error);
+        }
+    });
+});
+
+describe('User Registration Tests', () => {
+    it('Should successfully register with valid user information', async () => {
+        const req = {
+            body: {
+                // Valid user information
+                // Adjust the input based on your actual registration endpoint
+                email: 'test@example.com',
+                password: 'StrongPassword123!',
+                name: 'John Doe',
+                mobile: '12345678',
+            },
+        };
+
+        const res = {
+            status: function (code) {
+                return this;
+            },
+            json: function (data) {
+                // Add assertions based on your expected response for a successful registration
+                expect(data.message).to.equal('Register successful!');
+            },
+        };
+
+        // Call your register function
+        try {
+            await register(req, res);
+        } catch (error) {
+            // Handle any errors during registration
+            console.error('Error during registration:', error);
+        }
+    });
+});

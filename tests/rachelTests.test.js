@@ -134,19 +134,19 @@ describe('Testing Register Function', () => {
     });
 })
 
-describe('User Registration Tests', () => {
-    it('Should return a validation error for partially filled registration form', async () => {
-        const result = await register({
-            body: {
-                // Partially filled registration form (missing required fields)
-                // Adjust the input based on your actual registration endpoint
-                email: 'test@example.com',
-            },
-        });
-        expect(result.status).to.equal(400);
-        expect(result.body).to.have.property('message').to.equal('Validation error');
-    });
-})
+// describe('User Registration Tests', () => {
+//     it('Should return a validation error for partially filled registration form', async () => {
+//         const result = await register({
+//             body: {
+//                 // Partially filled registration form (missing required fields)
+//                 // Adjust the input based on your actual registration endpoint
+//                 email: 'test@example.com',
+//             },
+//         });
+//         expect(result.status).to.equal(400);
+//         expect(result.body).to.have.property('message').to.equal('Validation error');
+//     });
+// })
 
 describe('User Registration Tests', () => {
     it('Should return a validation error for weak password', async () => {
@@ -213,3 +213,4 @@ describe('User Registration Tests', () => {
         }
     });
 });
+

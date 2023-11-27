@@ -71,7 +71,7 @@ async function searchJobs(req, res) {
         if (searchResults.length > 0) {
             return res.status(200).json(searchResults);
         } else {
-            return res.status(404).json({ message: "No matching jobs found." });
+            return res.status(500).json({ message: "No matching jobs found." });
         }
     } catch (error) {
         return res.status(500).json({ message: error.message });

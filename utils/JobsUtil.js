@@ -1,8 +1,6 @@
 const { readJSON, writeJSON } = require('./UserUtil')
 const { Job } = require('../models/jobs.js');
 
-
-
 async function addJobs(req, res) {
     try {
         const jobName = req.body.jobName;

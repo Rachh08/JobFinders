@@ -5,11 +5,12 @@
   "main": "index.js",
   "nyc": {
     "include": [
-    "utils/sampleFunctions.js"
+      "utils/JobsUtil.js",
+      "utils/UserUtil.js"
     ],
     "exclude": [],
     "reporter": [
-    "text-summary"
+      "text-summary"
     ],
     "all": true,
     "check-coverage": true,
@@ -17,7 +18,7 @@
     "lines": 80,
     "functions": 80,
     "statements": 80
-    },
+  },
   "scripts": {
     "test": "nyc mocha tests/*.test.js"
   },
@@ -29,6 +30,7 @@
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "mocha": "^10.2.0",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "sinon": "^17.0.1"
   }
 }

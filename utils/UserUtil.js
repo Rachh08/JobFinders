@@ -162,7 +162,7 @@ async function updateUser(req, res) {
             return res.status(201).json({ message: 'User details has been successfully updated!' });
         }
         else {
-            return res.status(201).json({ message: 'User details is unsuccessful!' });
+            return res.status(500).json({ message: 'User details is unsuccessful!' });
         }
     }
 

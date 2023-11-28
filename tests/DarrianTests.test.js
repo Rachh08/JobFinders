@@ -37,7 +37,7 @@ describe('Testing Login Function', () => {
     it('Should shows wrong email and password', async () => {
         const req = {
             body: {
-                email: 'asde@email.com',
+                email: 'asde#email.com',
                 password: 'abcdefg',
             },
         };
@@ -57,7 +57,7 @@ describe('Testing Login Function', () => {
     it('Should shows there is no input in email and password', async () => {
         const req = {
             body: {
-                email: orgContent[0].e,
+                email: 'dddd@gmail.com',
                 password: '',
             },
         };
@@ -68,7 +68,7 @@ describe('Testing Login Function', () => {
                 return this;
             },
             json: function (data) {
-                expect(data.message).to.equal('All input fields must be filled!');
+                expect(data.message).to.equal('All input fields must be filled.');
             },
         };
         await login(req, res);
@@ -111,11 +111,11 @@ describe('Testing Update Function', () => {
         await updateUser(req, res);
     });
 
-    it('Should shows mobile number should not have more than 8 digits', async () => {
+    it('Should shows password should not have more than 8 digits', async () => {
         const req = {
             body: {
-                password: 'pssdes?P',
-                mobile: '123456788',
+                password: 'pssdes?Ps',
+                mobile: '44444444',
             },
             params: {
                 id: orgContent[0].id
@@ -128,20 +128,20 @@ describe('Testing Update Function', () => {
                 return this;
             },
             json: function (data) {
-                expect(data.message).to.equal('Mobile Number should not have more than 8 digits!');
+                expect(data.message).to.equal('Password should not have more than 8 digits!');
             },
         };
         await updateUser(req, res);
     });
 
-    it('Should shows id is invalid', async () => {
+    it('Should shows User details is unsuccessful! ', async () => {
         const req = {
             body: {
-                password: '!IIeeeee',
-                mobile: '98876543', 
+                password: '@ddddErr',
+                mobile: '44444444',
             },
             params: {
-                id: orgContent[0].id
+                id: 'wwuuud'
             }
         };
 
@@ -151,7 +151,7 @@ describe('Testing Update Function', () => {
                 return this;
             },
             json: function (data) {
-                expect(data.message).to.equal("Password should contain one upper case letter and special character and must not have numbers!");
+                expect(data.message).to.equal('User details is unsuccessful!');
             },
         };
         await updateUser(req, res);

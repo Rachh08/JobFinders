@@ -44,13 +44,17 @@ describe('Testing Register Function', () => {
             },
             json: function (data) {
                 // Check for both error response and successful registration
-                if (data.message) {
+                // if (data.message) {
                     // successful registration message
-                    expect(data.message).to.equal('Register successful!');
-                } else {
-                    // If there is no 'message' property, assume it's a successful registration
-                    // Your assertions for the registration data here
-                }
+                    // expect(data.message).to.equal('Register successful!');
+                    expect(data).to.have.lengthOf(orgContent.length + 1);
+                    expect(data[orgContent.length].email).to.equal(req.body.email);
+                    expect(data[orgContent.length].password).to.equal(req.body.password);
+                // } 
+                // else {
+                //     // If there is no 'message' property, assume it's a successful registration
+                //     // Your assertions for the registration data here
+                // }
             },
         };
 
@@ -85,28 +89,28 @@ describe('Testing Register Function', () => {
             await searchJobs(req, res);
         });
 
-        it('Should return a validation error for weak password', async () => {
-            const invalidQuery = 'invalidquery'; // Provide a query with no matching jobs
-            const req = {
-                body: {
-                    q: invalidQuery,
-                },
-            };
+        // it('Should return a validation error for weak password', async () => {
+        //     const invalidQuery = 'invalidquery'; // Provide a query with no matching jobs
+        //     const req = {
+        //         body: {
+        //             q: invalidQuery,
+        //         },
+        //     };
 
-            const res = {
-                status: function (code) {
-                    expect(code).to.equal(400);
-                    return this;
-                },
-                json: function (data) {
-                    expect(data.message).to.include('Validation error');
-                },
-            };
-        
-            // Call your register function
-            await register(req, res);
-        });
-        
+        //     const res = {
+        //         status: function (code) {
+        //             expect(code).to.equal(400);
+        //             return this;
+        //         },
+        //         json: function (data) {
+        //             expect(data.message).to.include('Validation error');
+        //         },
+        //     };
+
+        //     // Call your register function
+        //     await register(req, res);
+        // });
+
 
         it('Should return 400 for an invalid search query', async () => {
             const invalidQuery = '123invalid'; // Provide an invalid query (contains numbers)
@@ -138,14 +142,16 @@ it('Should return a validation error for partially filled registration form', as
     const req = {
         body: {
             // Include only some fields, leaving others empty
-            email: 'rachel@gmail.com',
-            password: 'T06ryuu@#&',
+            name: 'mabel',
+            email: '',
+            password: 'Ty07456@',
+            mobile: '64678268'
         },
     };
 
     const res = {
         status: function (code) {
-            this.statusCode = code; 
+            this.statusCode = code;
             return this;
         },
         json: function (data) {
@@ -174,7 +180,6 @@ it('Should return a validation error for weak password', async () => {
             return this;
         },
         json: function (data) {
-            // Modify the assertion to check if the error message includes 'Validation error'
             expect(data.message).to.include('Validation error');
         },
     };
@@ -184,36 +189,36 @@ it('Should return a validation error for weak password', async () => {
 });
 
 
-describe('User Registration Tests', () => {
-    it('Should successfully register with valid user information', async () => {
-        const req = {
-            body: {
-                // Valid user information
-                // Adjust the input based on your actual registration endpoint
-                email: 'test@example.com',
-                password: 'StrongPassword123!',
-                name: 'John Doe',
-                mobile: '12345678',
-            },
-        };
+// describe('User Registration Tests', () => {
+//     it('Should successfully register with valid user information', async () => {
+//         const req = {
+//             body: {
+//                 // Valid user information
+//                 // Adjust the input based on your actual registration endpoint
+//                 email: 'test@example.com',
+//                 password: 'StrongPassword123!',
+//                 name: 'John Doe',
+//                 mobile: '12345678',
+//             },
+//         };
 
-        const res = {
-            status: function (code) {
-                return this;
-            },
-            json: function (data) {
-                // Add assertions based on your expected response for a successful registration
-                expect(data.message).to.equal('Register successful!');
-            },
-        };
+//         const res = {
+//             status: function (code) {
+//                 return this;
+//             },
+//             json: function (data) {
+//                 // Add assertions based on your expected response for a successful registration
+//                 expect(data.message).to.equal('Register successful!');
+//             },
+//         };
 
-        // Call your register function
-        try {
-            await register(req, res);
-        } catch (error) {
-            // Handle any errors during registration
-            console.error('Error during registration:', error);
-        }
-    });
-});
+//         // Call your register function
+//         try {
+//             await register(req, res);
+//         } catch (error) {
+//             // Handle any errors during registration
+//             console.error('Error during registration:', error);
+//         }
+//     });
+// });
 

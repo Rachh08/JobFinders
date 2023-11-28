@@ -5,8 +5,9 @@
   "main": "index.js",
   "nyc": {
     "include": [
-      "utils/JobsUtil.js",
-      "utils/UserUtil.js"
+    "utils/sampleFunctions.js",
+    "utils/UserUtil.js"
+    "utils/JobsUtil.js",
     ],
     "exclude": [],
     "reporter": [

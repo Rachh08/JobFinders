@@ -6,8 +6,8 @@
   "nyc": {
     "include": [
     "utils/sampleFunctions.js",
-    "utils/UserUtil.js"
-    "utils/JobsUtil.js",
+    "utils/UserUtil.js",
+    "utils/JobsUtil.js"
     ],
     "exclude": [],
     "reporter": [

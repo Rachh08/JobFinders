@@ -61,6 +61,7 @@ async function register(req, res) {
         const name = req.body.name;
         const mobile = req.body.mobile;
 
+        const allUsers = await readJSON('utils/users.json');
 
         // Checks if all fields are filled in 
         if (!email || !password || !name || !mobile) {

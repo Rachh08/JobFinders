@@ -62,6 +62,37 @@ describe('Testing Register Function', () => {
         await register(req, res);
     });
 
+    it('Should successfully register with valid user information', async () => {
+        const req = {
+            body: {
+                // Valid user information
+                // Adjust the input based on your actual registration endpoint
+                email: 'test@example.com',
+                password: 'StrongPassword123!',
+                name: 'John Doe',
+                mobile: '12345678',
+            },
+        };
+
+        const res = {
+            status: function (code) {
+                return this;
+            },
+            json: function (data) {
+                // Add assertions based on your expected response for a successful registration
+                expect(data.message).to.equal('Register successful!');
+            },
+        };
+
+        // Call your register function
+        try {
+            await register(req, res);
+        } catch (error) {
+            // Handle any errors during registration
+            console.error('Error during registration:', error);
+        }
+    });
+});
 
     describe('Testing searchJobs Function', () => {
         it('Should return matching jobs for a valid query', async () => {
@@ -136,7 +167,6 @@ describe('Testing Register Function', () => {
             await searchJobs(req, res);
         });
     });
-})
 
 it('Should return a validation error for partially filled registration form', async () => {
     const req = {
@@ -187,38 +217,3 @@ it('Should return a validation error for weak password', async () => {
     // Call your register function
     await register(req, res);
 });
-
-
-// describe('User Registration Tests', () => {
-//     it('Should successfully register with valid user information', async () => {
-//         const req = {
-//             body: {
-//                 // Valid user information
-//                 // Adjust the input based on your actual registration endpoint
-//                 email: 'test@example.com',
-//                 password: 'StrongPassword123!',
-//                 name: 'John Doe',
-//                 mobile: '12345678',
-//             },
-//         };
-
-//         const res = {
-//             status: function (code) {
-//                 return this;
-//             },
-//             json: function (data) {
-//                 // Add assertions based on your expected response for a successful registration
-//                 expect(data.message).to.equal('Register successful!');
-//             },
-//         };
-
-//         // Call your register function
-//         try {
-//             await register(req, res);
-//         } catch (error) {
-//             // Handle any errors during registration
-//             console.error('Error during registration:', error);
-//         }
-//     });
-// });
-

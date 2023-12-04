@@ -96,7 +96,6 @@ async function register(req, res) {
         // Checks if the name string contains only letters and is filled in
         else if (!/^[a-zA-Z]+$/.test(name) || name.length === 0) {
             it('should return a validation error message', function () {
-                // Assuming that you have access to the chai library and the data object is available
                 expect(data.message).to.equal('make Name with only letters');
                 // Handle the validation error as needed
             });

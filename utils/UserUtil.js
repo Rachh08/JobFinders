@@ -78,35 +78,34 @@ async function register(req, res) {
             return res.status(400).json({ message: 'Validation error: Password must be at least 8 characters long.' });
         }
 
-        // // Checks if the password string contains at least one uppercase letter 
-        // else if (!/(?=.*[A-Z])/.test(password)) {
-        //     // Handle the validation error
-        //     return res.status(400).json({ message: 'Validation error: Password must contain at least one uppercase letter.' });
-        // }
+        // Checks if the password string contains at least one uppercase letter 
+        else if (!/(?=.*[A-Z])/.test(password)) {
+            // Handle the validation error
+            return res.status(400).json({ message: 'Validation error: Password must contain at least one uppercase letter.' });
+        }
 
-        // // Checks if the password string contains one special character
-        // else if (!/(?=.*[!@#$%^&*])/.test(password)) {
-        //     it('should return a validation error for missing special character in password', function () {
-        //         // Assuming that you have access to the chai library and the data object is available
-        //         expect(data.message).to.equal('Password needs a special character');
-        //         // Handle the validation error as needed
-        //     });
-        // }
+        // Checks if the password string contains one special character
+        else if (!/(?=.*[!@#$%^&*])/.test(password)) {
+            it('should return a validation error for missing special character in password', function () {
+                // Assuming that you have access to the chai library and the data object is available
+                expect(data.message).to.equal('Password needs a special character');
+                // Handle the validation error as needed
+            });
+        }
 
-        // // Checks if the name string contains only letters and is filled in
-        // else if (!/^[a-zA-Z]+$/.test(name) || name.length === 0) {
-        //     it('should return a validation error message', function () {
-        //         // Assuming that you have access to the chai library and the data object is available
-        //         expect(data.message).to.equal('make Name with only letters');
-        //         // Handle the validation error as needed
-        //     });
-        // }
+        // Checks if the name string contains only letters and is filled in
+        else if (!/^[a-zA-Z]+$/.test(name) || name.length === 0) {
+            it('should return a validation error message', function () {
+                expect(data.message).to.equal('make Name with only letters');
+                // Handle the validation error as needed
+            });
+        }
 
-//         else if (!mobile.trim() || !/^\d{8}$/.test(mobile)) {
-//             const validationError = { message: 'Invalid Mobile Number' };
-//             expect(validationError.message).to.equal('Invalid Mobile Number');
-//             return res.status(400).json(validationError);
-// }
+        else if (!mobile.trim() || !/^\d{8}$/.test(mobile)) {
+            const validationError = { message: 'Invalid Mobile Number' };
+            expect(validationError.message).to.equal('Invalid Mobile Number');
+            return res.status(400).json(validationError);
+}
 
         else {
             const newUser = new User(name, email, password, mobile);

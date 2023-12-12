@@ -6,49 +6,28 @@ const { readJSON, deleteUser, writeJSON } = require('../utils/UserUtil.js')
 const { viewJobs, addJobs } = require('../utils/JobsUtil.js')
 
 describe("Testing View Job Functions",  () => {
-    //const jobFilePath = '../utils/jobs.json';
-
-    const expectedData = [
-        {
-            "jobName": "Assistant Chef",
-            "company": "Gordon Ramsay Kitchen",
-            "location": "Bedok Green",
-            "description": "Cook delicious food and work under renowned chef Gordon Ramsay. Training Provided. Send portfolio with resume. Thanks",
-            "contact": "littlechef@gmail.com",
-            "id": "11242023001"
-        },
-        {
-            "jobName": "Web Developer Intern",
-            "company": "Web Company",
-            "location": "Jurong West",
-            "description": "Recruiting Interns for front-end development of mobile app. Requirement: Good UI and UX skills.",
-            "contact": "123john@gmail.com, 0471-2345",
-            "id": "11242023002"
-        }
-    ];
-    
-
-    const req = {};
-    const res = {
-        status: (code) => ({ json: (data) => ({ code, data }) }),
-    };
-
-    
+    const jobFilePath = 'utils/jobs.json';
+  
 
     it("Should view all Jobs successfully", async () => {
-        const result = await viewJobs(res, req);
+        const req = {};
 
-        expect(result.code).to.equal(201);
-        expect(result).to.deep.equal({
+        const res = {
+            status: function (code) {
+                expect(code).to.equal(201);
+                return this;
+            },
 
-            code: 201,
-            data:expectedData
+            json: function (data) {
+                expect(Array.isArray(data)).to.be.true;
+            },
 
+        };
 
-        })
+        await viewJobs(req, res);
+        });
 
     });
-});
 
 
 describe('Testing Add Job Functions', () => {

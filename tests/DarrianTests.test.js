@@ -138,10 +138,10 @@ describe('Testing Update Function', () => {
         const req = {
             body: {
                 password: '@ddddErr',
-                mobile: '44444444',
+                mobile: '44444444'
             },
             params: {
-                id: 'wwuuud'
+                id: "zzz"
             }
         };
 

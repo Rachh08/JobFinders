@@ -5,9 +5,8 @@
   "main": "index.js",
   "nyc": {
     "include": [
-    "utils/sampleFunctions.js",
-    "utils/UserUtil.js",
-    "utils/JobsUtil.js"
+      "utils/UserUtil.js",
+      "utils/JobsUtil.js"
     ],
     "exclude": [],
     "reporter": [
@@ -31,7 +30,6 @@
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "mocha": "^10.2.0",
-    "nyc": "^15.1.0",
-    "sinon": "^17.0.1"
+    "nyc": "^15.1.0"
   }
 }

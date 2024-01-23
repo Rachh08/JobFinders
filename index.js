@@ -32,6 +32,7 @@ app.put('/updateuser/:id', updateUser);
 const { deleteUser } = require('./utils/UserUtil')
 app.delete('/delete-user/:name', deleteUser);
 
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);
 })

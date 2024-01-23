@@ -18,24 +18,6 @@ function editUser(id) {
     document.getElementById("editMessage").setAttribute("class", "text-danger");
     return;
     }
-    if ( password.length > 8){
-        document.getElementById("editMessage").innerHTML = "Password should not have more than 8 digits!";
-        return;
-    }  //if password does not consist of uppercase  
-    if ( !/(?=.*[A-Za-z])(?=.*[!@#$%^&*])/.test(password)) {
-        document.getElementById("editMessage").innerHTML = "Password should contain one upper case letter and special character and must not have numbers!";
-        return;
-    }   
-    // if mobile number consist of letter 
-    if ( !/^[0-9]/.test(mobile)) {
-        document.getElementById("editMessage").innerHTML = "Mobile number should contain only numbers!";
-        return;
-    }
-    //if  mobile number exceeds 8 digits
-    if ( mobile.length > 8){
-        document.getElementById("editMessage").innerHTML = "Mobile Number should not have more than 8 digits ";
-        return;
-    }
     var request = new XMLHttpRequest();
     request.open("PUT", "/updateUser/" + id, true);
     request.setRequestHeader('Content-Type', 'application/json');

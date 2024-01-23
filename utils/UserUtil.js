@@ -44,7 +44,7 @@ async function login(req, res) {
           return res.status(500).json({message: 'Invalid email!'})
         } //if user does not fill all input 
       if (!email || !password) {
-          return res.status(400).json({ message: 'All input fields must be filled.' });
+          return res.status(400).json({ message: 'All input fields must be filled!' });
          } // if user type in both wrong email and password
        else {
       return res.status(500).json({ message: 'Wrong Email and Password!' });

@@ -7,14 +7,6 @@ function login() {
     if (jsonData.email == "" || jsonData.password == "") {
     document.getElementById("error").innerHTML = 'All input fields must be filled!';
     return;
-    }// if user only type in correct email 
-    if (jsonData.email == email) {
-    document.getElementById("error").innerHTML = 'Invalid password!';
-    return;
-    } // if user only type in correct password 
-    if (jsonData.password == password) {
-    document.getElementById("error").innerHTML = 'Invalid email!';
-    return;
     }
     var request = new XMLHttpRequest();
     request.open("POST", "/login", true);

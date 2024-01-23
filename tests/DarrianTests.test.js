@@ -37,14 +37,6 @@ describe('Testing Login Function', () => {
     it('Should shows wrong email and password', async () => {
         const req = {
             body: {
-                email: 'asde@email.com',
-                password: 'abcdefg',
-            },
-        };
-
-    it('Should shows wrong email and password', async () => {
-        const req = {
-            body: {
                 email: 'asde#email.com',
                 password: 'abcdefg',
             },
@@ -61,27 +53,6 @@ describe('Testing Login Function', () => {
         };
         await login(req, res);
     });
-
-    it('Should shows there is no input in email and password', async () => {
-        const req = {
-            body: {
-                email: orgContent[0].e,
-                password: '',
-            },
-        };
-
-        const res = {
-            status: function (code) {
-                expect(code).to.equal(400);
-                return this;
-            },
-            json: function (data) {
-                expect(data.message).to.equal('All input fields must be filled!');
-            },
-        };
-        await login(req, res);
-    });
-});
 
     it('Should shows there is no input in email and password', async () => {
         const req = {
@@ -140,53 +111,6 @@ describe('Testing Update Function', () => {
         await updateUser(req, res);
     });
 
-    it('Should shows mobile number should not have more than 8 digits', async () => {
-        const req = {
-            body: {
-                password: 'pssdes?P',
-                mobile: '123456788',
-            },
-            params: {
-                id: orgContent[0].id
-            }
-        };
-
-        const res = {
-            status: function (code) {
-                expect(code).to.equal(500);
-                return this;
-            },
-            json: function (data) {
-                expect(data.message).to.equal('Mobile Number should not have more than 8 digits!');
-            },
-        };
-        await updateUser(req, res);
-    });
-
-    it('Should shows id is invalid', async () => {
-        const req = {
-            body: {
-                password: '!IIeeeee',
-                mobile: '98876543', 
-            },
-            params: {
-                id: orgContent[0].id
-            }
-        };
-
-        const res = {
-            status: function (code) {
-                expect(code).to.equal(500);
-                return this;
-            },
-            json: function (data) {
-                expect(data.message).to.equal("Password should contain one upper case letter and special character and must not have numbers!");
-            },
-        };
-        await updateUser(req, res);
-    });
-});
-
     it('Should shows password should not have more than 8 digits', async () => {
         const req = {
             body: {
@@ -214,10 +138,10 @@ describe('Testing Update Function', () => {
         const req = {
             body: {
                 password: '@ddddErr',
-                mobile: '44444444',
+                mobile: '44444444'
             },
             params: {
-                id: 'wwuuud'
+                id: "zzz"
             }
         };
 
@@ -232,5 +156,4 @@ describe('Testing Update Function', () => {
         };
         await updateUser(req, res);
     });
-
-
+});

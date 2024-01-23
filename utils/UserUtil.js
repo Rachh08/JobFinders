@@ -59,6 +59,7 @@ async function register(req, res) {
         const password = req.body.password;
         const name = req.body.name;
         const mobile = req.body.mobile;
+        const allUsers = await readJSON('utils/users.json');
 
         // Checks if all fields are filled in 
         if (email === "" || password === ""|| name === ""  || mobile ==="") {
@@ -163,7 +164,7 @@ async function updateUser(req, res) {
             return res.status(201).json({ message: 'User details has been successfully updated!' });
         }
         else {
-            return res.status(201).json({ message: 'User details is unsuccessful!' });
+            return res.status(500).json({ message: 'User details is unsuccessful!' });
         }
     }
 

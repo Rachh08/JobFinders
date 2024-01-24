@@ -55,8 +55,7 @@ async function login(req, res) {
 }
 
 async function register(req, res) {
-    console.log("register func")
-    
+
     try {
         const email = req.body.email;
         const password = req.body.password;
@@ -169,10 +168,12 @@ async function updateUser(req, res) {
         }
     }
     
-    catch (error) {
+
+     catch (error) {
         return res.status(500).json({ message: error.message });
     }
 }
+
 
     
 
@@ -204,8 +205,6 @@ async function deleteUser(req, res) {
 }
 
 
-
 module.exports = {
     readJSON, writeJSON, login, register, updateUser, deleteUser
 };
-    

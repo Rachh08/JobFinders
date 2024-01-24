@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 app.use(express.static("./public"));
 
 
+
 const { register } = require('./utils/UserUtil');
 app.post('/register', register);
 
@@ -31,8 +32,6 @@ app.put('/updateuser/:id', updateUser);
 const { deleteUser } = require('./utils/UserUtil')
 app.delete('/delete-user/:name', deleteUser);
 
-
-
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);
 })
@@ -41,6 +40,5 @@ app.listen(PORT, function () {
 
     console.log(`Demo project at: ${PORT}!`);
 });
-
 
 

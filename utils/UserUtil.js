@@ -1,6 +1,5 @@
 const { User } = require('../models/User');
 const fs = require('fs').promises;
-
 async function readJSON(filename) {
     try {
         const data = await fs.readFile(filename, 'utf8');
@@ -54,6 +53,7 @@ async function login(req, res) {
 }
 
 async function register(req, res) {
+
     try {
         const email = req.body.email;
         const password = req.body.password;
@@ -174,7 +174,6 @@ async function updateUser(req, res) {
 }
 
 
-
 async function deleteUser(req, res) {
     try {
         const usernameToDelete = req.params.name;
@@ -201,7 +200,6 @@ async function deleteUser(req, res) {
         return res.status(500).json({ message: error.message });
     }
 }
-
 
 
 module.exports = {

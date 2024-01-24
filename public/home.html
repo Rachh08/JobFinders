@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<link rel="icon" href="data:,">
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/global.css">
+    <script src="/js/home.js"></script>
+
+    <title>Job Finders</title>
+</head>
+
+<body onload="viewResources()">
+    <div class="box-1">
+        <h1>JobFinders</h1>
+        <img src="/images/logo.png" alt="Job Finders logo">
+    </div>
+
+    <hr color="rgb(1, 1, 47)">
+
+    <div style="padding: auto;">
+        <img src="https://assetsio.reedpopcdn.com/job-seeking.png?width=1600&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp"
+            alt="youth seeking jobs" width="600" style="display: block; margin: 0 auto;">
+        <br>
+        <button>USER</button>
+    </div>
+
+    <!-- search bar -->
+
+
+    <br>
+
+    <button data-toggle="modal" data-target="#addJobModal"> Add Job</button>
+
+    <br>
+    <br>
+    <h2>Available Jobs</h2>
+    <br>
+    <div id="data-table">
+        <table id="jobTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Job Name</th>
+                    <th>Company</th>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>Contact</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="" tableContent></tbody>
+        </table>
+    </div>
+
+    <!-- Add Job Modal -->
+
+<div class="modal fade" id="addJobModal" tabindex="-1" role="dialog" aria-labelledby="addJobModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="addJobModalLabel">Add New Job</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="jobName">Job Name</label>
+                            <input type="text" class="form-control" id="jobName" placeholder="Enter Job name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" class="form-control" id="company" placeholder="Enter Company name">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" class="form-control" id="location" placeholder="Enter location">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" id="description" placeholder="Enter short description">
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact</label>
+                    <input type="text" class="form-control" id="contact" placeholder="Enter contact">
+                </div>
+                <p align="right" id="message" class=""></p>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="addJob()">Add Job</button>
+        </div>
+    </div>
+</div>
+</div>
+
+</body>
+
+</html>

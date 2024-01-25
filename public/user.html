@@ -1,6 +1,44 @@
 <!DOCTYPE html>
 
-<body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/global.css">
+    <script src="/js/userprofile.js"></script>
+
+    <button type="button" class="btn btn-primary" onclick="window.location.href='home.html'">Home</button>
+    <title>Job Finders</title>
+</head>
+
+<body onload="viewUsers()">
+    <div class="container mt-5">
+    <div class="row justify-content-center">
+    <img src="images/find_job_logo.jpg">
+    </div>
+    <div class="row justify-content-center">
+    <div class="col-md-12">
+    <table class="table table-striped table-striped-custom">
+    <thead>
+    <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Mobile</th>
+    <th>Password</th>
+    <th></th>
+    </tr>
+    </thead>
+    <tbody id="tableContent">
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    
 
     <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel"
         aria-hidden="true">

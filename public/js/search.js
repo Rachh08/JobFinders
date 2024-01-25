@@ -13,13 +13,12 @@ function performSearch(event) {
 
     var query = document.getElementById("query").value;
 
-    // Make an AJAX request to the server
-    fetch("/search-endpoint", {
-        method: "GET", 
+    // Make a GET request to the server with the query as a parameter
+    fetch("/search?query=" + encodeURIComponent(query), {
+        method: "GET",
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query: query }),
     })
         .then(response => {
             if (!response.ok) {
@@ -28,8 +27,14 @@ function performSearch(event) {
             return response.json();
         })
         .then(data => {
-            // Handle the received search results data
-            displaySearchResults(data.results);
+            // Check if the job was found or not
+            if (data.job) {
+                // Display the job details
+                displaySearchResults(data.job);
+            } else {
+                // Display a message indicating that the job was not found
+                displayNoResults();
+            }
         })
         .catch(error => {
             console.error('Network error occurred', error);
@@ -37,16 +42,28 @@ function performSearch(event) {
         });
 }
 
-
-function displaySearchResults(query) {
+function displaySearchResults(job) {
     var searchResultsContainer = document.getElementById("searchResults");
 
     // Clear previous search results
     searchResultsContainer.innerHTML = "";
 
-    // Display the search results 
+    // Display the job details 
     var resultParagraph = document.createElement("p");
-    resultParagraph.textContent = "Search results for: " + query;
+    resultParagraph.textContent = `Job Title: ${job.title}, Company: ${job.company}, Location: ${job.location}`;
 
     searchResultsContainer.appendChild(resultParagraph);
+}
+
+function displayNoResults() {
+    var searchResultsContainer = document.getElementById("searchResults");
+
+    // Clear previous search results
+    searchResultsContainer.innerHTML = "";
+
+    // Display a message indicating that the job was not found
+    var noResultsParagraph = document.createElement("p");
+    noResultsParagraph.textContent = "Sorry, no such job available.";
+
+    searchResultsContainer.appendChild(noResultsParagraph);
 }

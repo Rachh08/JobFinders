@@ -48,6 +48,9 @@ async function viewJobs(req, res) {
 
 async function searchJobs(req, res) {
     try {
+
+        console.log('Request Body:', req.body);
+
         // Assuming you have the search query in the request body
         const query = req.body.q;
 

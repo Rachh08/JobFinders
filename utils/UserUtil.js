@@ -16,6 +16,17 @@ async function writeJSON(object, filename) {
     } catch (err) { console.error(err); throw err; }
 }
 
+async function viewUser(req, res) {
+    try {
+        const allUsers = await readJSON('utils/users.json');
+
+        // Return all users
+        return res.status(200).json({ users: allUsers });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+
 
 async function login(req, res) {
     try {
@@ -203,6 +214,6 @@ async function deleteUser(req, res) {
 
 
 module.exports = {
-    readJSON, writeJSON, login, register, updateUser, deleteUser
+    readJSON, writeJSON, viewUser, login, register, updateUser, deleteUser
 };
 

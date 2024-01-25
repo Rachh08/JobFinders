@@ -40,7 +40,7 @@ const { deleteUser } = require('./utils/UserUtil')
 app.delete('/delete-user/:name', deleteUser);
 
 const { viewUser } = require('./utils/UserUtil')
-app.get('/view-user/:id', viewUser);
+app.get('/view-user', viewUser);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);

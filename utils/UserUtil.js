@@ -18,17 +18,10 @@ async function writeJSON(object, filename) {
 
 async function viewUser(req, res) {
     try {
-        const userId = req.params.id;
         const allUsers = await readJSON('utils/users.json');
 
-        // Find the user with the given ID
-        const user = allUsers.find(user => user.id == userId);
-
-        if (user) {
-            return res.status(200).json({ user });
-        } else {
-            return res.status(404).json({ message: 'User not found.' });
-        }
+        // Return all users
+        return res.status(200).json({ users: allUsers });
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

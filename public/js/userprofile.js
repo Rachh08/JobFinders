@@ -19,8 +19,8 @@ function viewUsers() {
             '<td>' +
             '<button type="button" class="btn btn-warning" onclick="editUser(' +
             response.users[i].id + ')">Edit </button> ' +
-            '<button type="button" class="btn btn-danger" onclick="deleteUser(' +
-            response.users[i].name + ')"> Delete</button>' +
+            '<button type="button" class="btn btn-danger" onclick="deleteUser(\'' +
+            response.users[i].name +'\')"> Delete</button>' +
             '</td>' +
             '</tr>';
         }
@@ -77,4 +77,33 @@ function editUser(id) {
         }
     };
     request.send(JSON.stringify(jsonData));
+}
+
+function deleteUser(name){
+
+    var password = prompt("To delete the user, please enter your password: ");
+
+    if(password === null){
+        return;
+    }
+
+    var request = new XMLHttpRequest();
+
+    request.open("DELETE", "/delete-user/" + name, true);
+    request.setRequestHeader('Content-Type','application/json');
+
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            var response = JSON.parse(request.responseText);
+            if (response.message === `User '${name}' deleted successfully.`) {
+                alert("User deleted successfully");
+                window.location.reload();
+            } else {
+                alert("Unable to delete user. Please check password and try again.")
+            }
+        }
+    };
+    
+    request.send(JSON.stringify({password: password}));
+
 }

@@ -62,45 +62,6 @@ function displayNoResults() {
     searchResultsContainer.appendChild(noResultsParagraph);
 }
 
-
-// function displaySearchResults(jobs) {
-//     var searchResultsContainer = document.getElementById("searchResults");
-
-//     // Clear previous search results
-//     searchResultsContainer.innerHTML = "";
-
-//     if (jobs.length > 0) {
-
-//         // Display each job details 
-//         jobs.forEach(job => {
-
-//             console.log("Processing job:", job);
-
-//             var jobContainer = document.createElement("div");
-//             jobContainer.classList.add("job-container");
-
-//             var jobTitle = document.createElement("h2");
-//             jobTitle.textContent = job.jobName;
-
-//             var companyInfo = document.createElement("p");
-//             companyInfo.textContent = `Company: ${job.company}, Location: ${job.location}, Contact: ${job.contact}`;
-
-//             var jobDescription = document.createElement("p");
-//             jobDescription.textContent = `Description: ${job.description}`;
-
-//             jobContainer.appendChild(jobTitle);
-//             jobContainer.appendChild(companyInfo);
-//             jobContainer.appendChild(jobDescription);
-
-//             searchResultsContainer.appendChild(jobContainer);
-//         });
-//     } else {
-//         // Display a message indicating that no jobs were found
-//         var noResultsParagraph = document.createElement("p");
-//         noResultsParagraph.textContent = "Sorry, no jobs found.";
-//         searchResultsContainer.appendChild(noResultsParagraph);
-//     }
-
 // Update your displaySearchResults function
 function displaySearchResults(searchResults) {
     // Check if searchResults is defined and has a length property
@@ -122,7 +83,7 @@ function displaySearchResults(searchResults) {
         $("#displaySearchResults").html(htmlContent);
 
         $("#searchResultsModal .modal-header").addClass("bg-primary text-white")
-        
+
     } else {
         // If there are no results, display a message or handle it as needed
         $("#displaySearchResults").html("<p>No results found</p>");

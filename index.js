@@ -10,7 +10,6 @@ app.use(bodyParser.json());
 
 app.use(express.static("./public"));
 
-// Enable CORS for all routes
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5055');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -39,6 +38,8 @@ app.put('/updateuser/:id', updateUser);
 const { deleteUser } = require('./utils/UserUtil')
 app.delete('/delete-user/:name', deleteUser);
 
+const { viewUser } = require('./utils/UserUtil')
+app.get('/view-user', viewUser);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);

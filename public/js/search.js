@@ -109,17 +109,20 @@ function displaySearchResults(searchResults) {
         let htmlContent = "";
         for (let i = 0; i < searchResults.length; i++) {
             // Modify this part based on your actual data structure
-            htmlContent += `<p>Job Name: ${searchResults[i].jobName}</p>`;
-            htmlContent += `<p>Company: ${searchResults[i].company}</p>`;
-            htmlContent += `<p>Location: ${searchResults[i].location}</p>`;
-            htmlContent += `<p>Description: ${searchResults[i].description}</p>`;
-            htmlContent += `<p>Contact: ${searchResults[i].contact}</p>`;
+            htmlContent += `<p><strong>Job Name</strong>: ${searchResults[i].jobName}</p>`;
+            htmlContent += `<p><strong>Company</strong>: ${searchResults[i].company}</p>`;
+            htmlContent += `<p><strong>Location</strong>: ${searchResults[i].location}</p>`;
+            htmlContent += `<p><strong>Description</strong>: ${searchResults[i].description}</p>`;
+            htmlContent += `<p><strong>Contact</strong>: ${searchResults[i].contact}</p>`;
             // Add a horizontal line between job entries
             htmlContent += `<hr>`;
         }
 
         // Set the HTML content inside the modal
         $("#displaySearchResults").html(htmlContent);
+
+        $("#searchResultsModal .modal-header").addClass("bg-primary text-white")
+        
     } else {
         // If there are no results, display a message or handle it as needed
         $("#displaySearchResults").html("<p>No results found</p>");

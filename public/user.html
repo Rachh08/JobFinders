@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,20 +14,23 @@
     <title>Job Finders</title>
 </head>
 
-<body onload="viewUsers()">
+<body>
     <div class="container mt-5">
     <div class="row justify-content-center">
     <img src="images/find_job_logo.jpg">
     </div>
     <div class="row justify-content-center">
     <div class="col-md-12">
+    <h1>User Details</h1>
     <table class="table table-striped table-striped-custom">
     <thead>
     <tr>
+    <th>ID</th>
     <th>Name</th>
     <th>Email</th>
-    <th>Mobile</th>
     <th>Password</th>
+    <th>Mobile Number</th>
+    <th>Actions</th>
     <th></th>
     </tr>
     </thead>
@@ -39,14 +41,13 @@
     </div>
     </div>
     
-
+    <!-- Update user details for password and mobile number-->>
     <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateUserModalLabel">Update User <details></details>
-                    </h5>
+                    <h5 class="modal-title" id="updateUserModalLabel">Update User Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -54,20 +55,19 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="text" class="form-control" id="updatePassword" placeholder="Enter password">
+                            <label for="updatePassword">Password</label>
+                            <input type="password" class="form-control" id="updatePassword" placeholder="Enter password">
                         </div>
                         <div class="form-group">
-                            <label for="mobile">Mobile</label>
-                            <input type="text" class="form-control" id="updateMobile" placeholder="Enter Mobile">
+                            <label for="updateMobile">Mobile</label>
+                            <input type="number" class="form-control" id="updateMobile" placeholder="Enter mobile number">
                         </div>
                         <p align="right" id="editMessage" class=""></p>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="updateButton" onclick="">Update User
-                        Details</button>
+                    <button type="button" class="btn btn-primary" id="updateButton" onclick="">Update User Details</button>
                 </div>
             </div>
         </div>

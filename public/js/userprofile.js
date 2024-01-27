@@ -11,7 +11,7 @@ function viewUsers() {
 
         for (var i = 0; i < response.users.length; i++) {
           html += '<tr>' +
-            //'<td>' + response.users[i].id + '</td>' +
+            '<td>' + response.users[i].id + '</td>' +
             '<td>' + response.users[i].name + '</td>' +
             '<td>' + response.users[i].email + '</td>' +
             '<td>' + response.users[i].mobile + '</td>' +

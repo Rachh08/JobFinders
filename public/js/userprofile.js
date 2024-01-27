@@ -11,14 +11,14 @@ function viewUsers() {
 
         for (var i = 0; i < response.users.length; i++) {
           html += '<tr>' +
-            '<td>' + response.users[i].id + '</td>' +
+            //'<td>' + response.users[i].id + '</td>' +
             '<td>' + response.users[i].name + '</td>' +
             '<td>' + response.users[i].email + '</td>' +
-            '<td>' + response.users[i].password + '</td>' +
             '<td>' + response.users[i].mobile + '</td>' +
+            '<td>' + response.users[i].password + '</td>' +
             '<td>' +
-            '<button type="button" class="btn btn-warning" onclick="updateUser(' +
-            response.users[i].id + ')">Update </button> ' +
+            '<button type="button" class="btn btn-warning" onclick="editUser(' +
+            response.users[i].id + ')">Edit </button> ' +
             '<button type="button" class="btn btn-danger" onclick="deleteUser(\'' +
             response.users[i].name +'\')"> Delete</button>' +
             '</td>' +
@@ -38,7 +38,6 @@ function viewUsers() {
   window.onload = function () {
     viewUsers();
   };
-
 
   function updateUser(data) {
     var selectedUser = JSON.parse(data);
@@ -74,4 +73,33 @@ function editUser(id) {
         }
     };
     request.send(JSON.stringify(jsonData));
+}
+
+function deleteUser(name){
+
+    var password = prompt("To delete the user, please enter your password: ");
+
+    if(password === null){
+        return;
+    }
+
+    var request = new XMLHttpRequest();
+
+    request.open("DELETE", "/delete-user/" + name, true);
+    request.setRequestHeader('Content-Type','application/json');
+
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            var response = JSON.parse(request.responseText);
+            if (response.message === `User '${name}' deleted successfully.`) {
+                alert("User deleted successfully");
+                window.location.reload();
+            } else {
+                alert("Unable to delete user. Please check password and try again.")
+            }
+        }
+    };
+    
+    request.send(JSON.stringify({password: password}));
+
 }

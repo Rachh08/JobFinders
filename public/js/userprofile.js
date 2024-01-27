@@ -18,7 +18,7 @@ function viewUsers() {
             '<td>' + response.users[i].password + '</td>' +
             '<td>' +
             '<button type="button" class="btn btn-warning" onclick="editUser(' +
-            response.users[i].id + ')">Edit </button> ' +
+            response.users[i].id + ')">Update </button> ' +
             '<button type="button" class="btn btn-danger" onclick="deleteUser(\'' +
             response.users[i].name +'\')"> Delete</button>' +
             '</td>' +

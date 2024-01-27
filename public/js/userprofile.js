@@ -17,7 +17,7 @@ function viewUsers() {
             '<td>' + response.users[i].mobile + '</td>' +
             '<td>' + response.users[i].password + '</td>' +
             '<td>' +
-            '<button type="button" class="btn btn-warning" onclick="editUser(' +
+            '<button type="button" class="btn btn-warning" onclick="updateUser(' +
             response.users[i].id + ')">Update </button> ' +
             '<button type="button" class="btn btn-danger" onclick="deleteUser(\'' +
             response.users[i].name +'\')"> Delete</button>' +
@@ -39,7 +39,7 @@ function viewUsers() {
     viewUsers();
   };
 
-  function updateUser(data) {
+function updateUser(data) {
     var selectedUser = JSON.parse(data);
     document.getElementById("updatePassword").value = selectedUser.password;
     document.getElementById("updateMobile").value = selectedUser.mobile; // changed from selectedMobile.mobile
@@ -48,7 +48,7 @@ function viewUsers() {
 }
 
 function editUser(id) {
-    console.log(id);
+    console.log(id)
     var response = "";
     var jsonData = new Object();
     jsonData.password = document.getElementById("updatePassword").value; // corrected property name from name to password

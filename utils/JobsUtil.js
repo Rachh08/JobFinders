@@ -15,17 +15,17 @@ async function addJobs(req, res) {
         }
 
 
-         // Validate jobName and company fields
-         const onlyAlpha= /^[A-Za-z\s]{1,50}$/; // Alphabets and spaces, up to 50 characters
-         if (!onlyAlpha.test(jobName) || !onlyAlpha.test(company)) {
-             return res.status(400).json({ message: 'Job name and company must contain alphabets only and be up to 50 characters long.' });
-         }
+        // Validate jobName and company fields
+        const onlyAlpha = /^[A-Za-z\s]{1,50}$/; // Alphabets and spaces, up to 50 characters
+        if (!onlyAlpha.test(jobName) || !onlyAlpha.test(company)) {
+            return res.status(400).json({ message: 'Job name and company must contain alphabets only and be up to 50 characters long.' });
+        }
 
-         //Validate contact to include only 1 @ so that user provides contact email
-         const oneSpecial = /^[^@]*@[^@]+$/;
-         if(!oneSpecial.test(contact)) {
-            return res.status(400).json({message: "Provide valid contact details: email"})
-         } 
+        //Validate contact to include only 1 @ so that user provides contact email
+        const oneSpecial = /^[^@]*@[^@]+$/;
+        if (!oneSpecial.test(contact)) {
+            return res.status(400).json({ message: "Provide valid contact details: email" })
+        }
 
         const newJob = new Job(jobName, company, location, description, contact);
 
@@ -46,25 +46,55 @@ async function viewJobs(req, res) {
 }
 
 
+// async function searchJobs(req, res) {
+//     try {
+
+//         // Assuming you have the search query in the request body
+//         const query = req.body.q;
+
+//         if (!query) {
+//             return res.status(400).json({ message: "Search query is required in the request body." });
+//         }
+
+//         // Check if the query contains only letters
+//         if (!/^[a-zA-Z]+$/.test(query)) {
+//             return res.status(400).json({ message: "Search query should only contain letters." });
+//         }
+
+//         // Read jobs from the JSON file
+//         const allJobs = await readJSON('utils/jobs.json');
+
+//         // Filter jobs based on the query matching jobName
+//         const searchResults = allJobs.filter(job => job.jobName.toLowerCase().includes(query.toLowerCase()));
+
+//         if (searchResults.length > 0) {
+//             return res.status(200).json(searchResults);
+//         } else {
+//             return res.status(404).json({ message: "No matching jobs found." });
+//         }
+//     } catch (error) {
+//         return res.status(500).json({ message: error.message });
+//     }
+// }
+
 async function searchJobs(req, res) {
     try {
-        // Assuming you have the search query in the request body
         const query = req.body.q;
 
         if (!query) {
-            return res.status(400).json({ message: "Search query is required in the request body." });
+            return res.status(400).json({ error: { message: "Search query is required in the request body." } });
         }
 
-        // Check if the query contains only letters
-        if (!/^[a-zA-Z]+$/.test(query)) {
-            return res.status(400).json({ message: "Search query should only contain letters." });
+        if (!/^[a-zA-Z\s]+$/.test(query)) {
+            return res.status(400).json({ error: { message: "Search query should only contain letters and spaces." } });
         }
 
-        // Read jobs from the JSON file
         const allJobs = await readJSON('utils/jobs.json');
 
-        // Filter jobs based on the query matching jobName
-        const searchResults = allJobs.filter(job => job.jobName.toLowerCase().includes(query.toLowerCase()));
+        const searchResults = allJobs.filter(job => {
+            const jobName = job.jobName && job.jobName.toLowerCase(); // Check if jobName is defined
+            return jobName && jobName.includes(query.toLowerCase());
+        });
 
         if (searchResults.length > 0) {
             return res.status(200).json(searchResults);
@@ -72,9 +102,12 @@ async function searchJobs(req, res) {
             return res.status(404).json({ message: "No matching jobs found." });
         }
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        console.error(error);
+        return res.status(500).json({ error: { message: "An error occurred", details: error.message } });
     }
 }
+
+
 
 module.exports = { viewJobs, addJobs, searchJobs };
 

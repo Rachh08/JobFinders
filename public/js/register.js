@@ -61,7 +61,7 @@ function register(event) {
         return;
     }
 
-    fetch("/register", {
+    fetch('http://localhost:5055/register', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',

@@ -1,6 +1,5 @@
 const { User } = require('../models/User');
 const fs = require('fs').promises;
-
 async function readJSON(filename) {
     try {
         const data = await fs.readFile(filename, 'utf8');
@@ -15,6 +14,17 @@ async function writeJSON(object, filename) {
         await fs.writeFile(filename, JSON.stringify(allObjects), 'utf8');
         return allObjects;
     } catch (err) { console.error(err); throw err; }
+}
+
+async function viewUser(req, res) {
+    try {
+        const allUsers = await readJSON('utils/users.json');
+
+        // Return all users
+        return res.status(200).json({ users: allUsers });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 }
 
 
@@ -54,11 +64,13 @@ async function login(req, res) {
 }
 
 async function register(req, res) {
+
     try {
         const email = req.body.email;
         const password = req.body.password;
         const name = req.body.name;
         const mobile = req.body.mobile;
+        const allUsers = await readJSON('utils/users.json');
 
         // Checks if all fields are filled in 
         if (email === "" || password === ""|| name === ""  || mobile ==="") {
@@ -139,12 +151,12 @@ async function updateUser(req, res) {
                 edit = true;
             }
         }
-        //if password exceeds 8 digits
-        if (password.length > 8) {
-            return res.status(500).json({ message: "Password should not have more than 8 digits!" });
+        //if password does not exceed 8 digits
+        if (password.length < 8) {
+            return res.status(500).json({ message: "Password should have at least 8 digits!" });
         }  //if password does not consist of uppercase  
-        if (!/(?=.*[A-Za-z])(?=.*[!@#$%^&*])/.test(password)) {
-            return res.status(500).json({ message: "Password should contain one upper case letter and special character and must not have numbers!" })
+        if (!/(?=.*[A-Za-z0-9])(?=.*[!@#$%^&*])/.test(password)) {
+            return res.status(500).json({ message: "Password should contain at least one upper case letter and special character!" })
         }
         // if mobile number consist of letter 
         if (!/^[0-9]/.test(mobile)) {
@@ -156,14 +168,14 @@ async function updateUser(req, res) {
         }
         //if user does not fill all input 
         if (!mobile || !password) {
-            return res.status(500).json({ message: 'All input fields must be filled!' });
+            return res.status(400).json({ message: 'All input fields must be filled!' });
         }  //to update the password and mobile  
         if (edit) {
             await fs.writeFile('utils/users.json', JSON.stringify(allUsers), 'utf8');
             return res.status(201).json({ message: 'User details has been successfully updated!' });
         }
         else {
-            return res.status(201).json({ message: 'User details is unsuccessful!' });
+            return res.status(500).json({ message: 'User details has not been updated successfully!' });
         }
     }
 
@@ -171,7 +183,6 @@ async function updateUser(req, res) {
         return res.status(500).json({ message: error.message });
     }
 }
-
 
 
 async function deleteUser(req, res) {
@@ -202,8 +213,7 @@ async function deleteUser(req, res) {
 }
 
 
-
 module.exports = {
-    readJSON, writeJSON, login, register, updateUser, deleteUser
+    readJSON, writeJSON, viewUser, login, register, updateUser, deleteUser
 };
 

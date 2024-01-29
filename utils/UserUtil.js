@@ -54,9 +54,10 @@ async function login(req, res) {
 
 async function register(req, res) {
     try {
+        const name = req.body.name;
         const email = req.body.email;
         const password = req.body.password;
-        const name = req.body.name;
+        const confirmpassword = req.body.confirmpassword;
         const mobile = req.body.mobile;
 
         // Checks if all fields are filled in 
@@ -92,14 +93,17 @@ async function register(req, res) {
             });
         }
 
-        // Checks if the name string contains only letters and is filled in
-        if (!/^[a-zA-Z]+$/.test(name) || name.length === 0) {
-            it('should return a validation error message', function () {
-                // Assuming that you have access to the chai library and the data object is available
-                expect(data.message).to.equal('make Name with only letters');
-                // Handle the validation error as needed
-            });
+        // Checks if the password and confirm password match
+        if (password !== confirmpassword) {
+            // Handle the validation error
+            return res.status(400).json({ message: 'Validation error: Password and confirm password do not match.' });
         }
+
+        // Checks if the name string contains only letters and is filled in
+        // if (!/^[a-zA-Z]+$/.test(name) || name.length === 0) {
+        //     // Handle the validation error
+        //     return res.status(400).json({ message: 'Validation error: Name must contain only letters.' });
+        // }
 
         // Checks if the mobile string contains exactly 8 digits
         if (!mobile.trim() || !/^\d{8}$/.test(mobile)) {

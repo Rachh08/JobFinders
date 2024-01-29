@@ -28,12 +28,6 @@ describe('Testing Register Function', () => {
     });
 
     it('Should register a new user successfully and return the correct response', async () => {
-        // Assuming orgContent is an array of existing user data
-        const orgContent = [
-            { email: 'existing@example.com', password: 'existingPassword' },
-            // Add more existing user data as needed
-        ];
-
         const req = {
             body: {
                 email: 'rachel@gmail.com',
@@ -50,8 +44,17 @@ describe('Testing Register Function', () => {
             },
             json: function (data) {
                 // Check for both error response and successful registration
-                // expect(data[orgContent.length].email).to.equal(req.body.email);
-                // expect(data[orgContent.length].password).to.equal(req.body.password);
+                // if (data.message) {
+                    // successful registration message
+                    // expect(data.message).to.equal('Register successful!');
+                    expect(data).to.have.lengthOf(orgContent.length + 1);
+                    expect(data[orgContent.length].email).to.equal(req.body.email);
+                    expect(data[orgContent.length].password).to.equal(req.body.password);
+                // } 
+                // else {
+                //     // If there is no 'message' property, assume it's a successful registration
+                //     // Your assertions for the registration data here
+                // }
             },
         };
 
@@ -91,79 +94,79 @@ describe('Testing Register Function', () => {
     });
 });
 
-describe('Testing searchJobs Function', () => {
-    it('Should return matching jobs for a valid query', async () => {
-        const validQuery = 'developer';
-        // Provide a valid search query
-        const req = {
-            body: {
-                q: validQuery,
-            },
-        };
+    describe('Testing searchJobs Function', () => {
+        it('Should return matching jobs for a valid query', async () => {
+            const validQuery = 'developer';
+            // Provide a valid search query
+            const req = {
+                body: {
+                    q: validQuery,
+                },
+            };
 
-        const res = {
-            status: function (code) {
-                // Expecting a successful response code
-                expect(code).to.equal(500);
-                return this;
-            },
-            json: function (data) {
-                // Expecting data to be an array (matching jobs)
-                expect(data).to.have.property('message');
-            },
-        };
+            const res = {
+                status: function (code) {
+                    // Expecting a successful response code
+                    expect(code).to.equal(500);
+                    return this;
+                },
+                json: function (data) {
+                    // Expecting data to be an array (matching jobs)
+                    expect(data).to.have.property('message');
+                },
+            };
 
-        // Call searchJobs function
-        await searchJobs(req, res);
+            // Call searchJobs function
+            await searchJobs(req, res);
+        });
+
+        // it('Should return a validation error for weak password', async () => {
+        //     const invalidQuery = 'invalidquery'; // Provide a query with no matching jobs
+        //     const req = {
+        //         body: {
+        //             q: invalidQuery,
+        //         },
+        //     };
+
+        //     const res = {
+        //         status: function (code) {
+        //             expect(code).to.equal(400);
+        //             return this;
+        //         },
+        //         json: function (data) {
+        //             expect(data.message).to.include('Validation error');
+        //         },
+        //     };
+
+        //     // Call your register function
+        //     await register(req, res);
+        // });
+
+
+        it('Should return 400 for an invalid search query', async () => {
+            const invalidQuery = '123invalid'; // Provide an invalid query (contains numbers)
+            const req = {
+                body: {
+                    q: invalidQuery,
+                },
+            };
+
+            const res = {
+                status: function (code) {
+                    // Expecting a bad request response code
+                    expect(code).to.equal(400);
+                    return this;
+                },
+                json: function (data) {
+                    // Expecting a message about an invalid search query
+                    expect(data).to.have.property('message').to.equal('Search query should only contain letters.');
+                },
+            };
+
+            // Call your searchJobs function
+            await searchJobs(req, res);
+        });
     });
-
-    // it('Should return a validation error for weak password', async () => {
-    //     const invalidQuery = 'invalidquery'; // Provide a query with no matching jobs
-    //     const req = {
-    //         body: {
-    //             q: invalidQuery,
-    //         },
-    //     };
-
-    //     const res = {
-    //         status: function (code) {
-    //             expect(code).to.equal(400);
-    //             return this;
-    //         },
-    //         json: function (data) {
-    //             expect(data.message).to.include('Validation error');
-    //         },
-    //     };
-
-    //     // Call your register function
-    //     await register(req, res);
-    // });
-
-
-    it('Should return 400 for an invalid search query', async () => {
-        const invalidQuery = '123invalid'; // Provide an invalid query (contains numbers)
-        const req = {
-            body: {
-                q: invalidQuery,
-            },
-        };
-
-        const res = {
-            status: function (code) {
-                // Expecting a bad request response code
-                expect(code).to.equal(400);
-                return this;
-            },
-            json: function (data) {
-                // Expecting a message about an invalid search query
-                expect(data).to.have.property('message').to.equal('Search query should only contain letters.');
-            },
-        };
-
-        // Call your searchJobs function
-        await searchJobs(req, res);
-    });
-});
 
 it('Should return a validation error for partially filled registration form', async () => {
     const req = {

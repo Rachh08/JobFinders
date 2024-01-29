@@ -151,12 +151,12 @@ async function updateUser(req, res) {
                 edit = true;
             }
         }
-        //if password exceeds 8 digits
-        if (password.length > 8) {
-            return res.status(500).json({ message: "Password should not have more than 8 digits!" });
+        //if password does not exceed 8 digits
+        if (password.length < 8) {
+            return res.status(500).json({ message: "Password should have at least 8 digits!" });
         }  //if password does not consist of uppercase  
         if (!/(?=.*[A-Za-z0-9])(?=.*[!@#$%^&*])/.test(password)) {
-            return res.status(500).json({ message: "Password should contain one upper case letter and special character!" })
+            return res.status(500).json({ message: "Password should contain at least one upper case letter and special character!" })
         }
         // if mobile number consist of letter 
         if (!/^[0-9]/.test(mobile)) {

@@ -66,10 +66,9 @@ async function login(req, res) {
 async function register(req, res) {
 
     try {
-        const name = req.body.name;
         const email = req.body.email;
         const password = req.body.password;
-        const confirmpassword = req.body.confirmpassword;
+        const name = req.body.name;
         const mobile = req.body.mobile;
         const allUsers = await readJSON('utils/users.json');
 
@@ -80,25 +79,25 @@ async function register(req, res) {
         }
 
         // Checks if the email string does not include the '@'and '.com' substring
-        if (!email.includes('@') || !email.includes('.com')) {
+        else if (!email.includes('@') || !email.includes('.com')) {
             // Handle the validation error
             return res.status(400).json({ message: 'Validation error: Invalid email format.' });
         }
 
         // Checks if the length of the password string is less than 8 characters
-        if (password.length < 8) {
+        else if (password.length < 8) {
             // Handle the validation error
             return res.status(400).json({ message: 'Validation error: Password must be at least 8 characters long.' });
         }
 
         // Checks if the password string contains at least one uppercase letter 
-        if (!/(?=.*[A-Z])/.test(password)) {
+        else if (!/(?=.*[A-Z])/.test(password)) {
             // Handle the validation error
             return res.status(400).json({ message: 'Validation error: Password must contain at least one uppercase letter.' });
         }
 
         // Checks if the password string contains one special character
-        if (!/(?=.*[!@#$%^&*])/.test(password)) {
+        else if (!/(?=.[!@#$%^&])/.test(password)) {
             it('should return a validation error for missing special character in password', function () {
                 // Assuming that you have access to the chai library and the data object is available
                 expect(data.message).to.equal('Password needs a special character');
@@ -106,45 +105,32 @@ async function register(req, res) {
             });
         }
 
-        // Checks if the password and confirm password match
-        if (password !== confirmpassword) {
-            // Handle the validation error
-            return res.status(400).json({ message: 'Validation error: Password and confirm password do not match.' });
+        // Checks if the name string contains only letters and is filled in
+        else if (!/^[a-zA-Z]+$/.test(name) || name.length === 0) {
+            it('should return a validation error message', function () {
+                expect(data.message).to.equal('make Name with only letters');
+                // Handle the validation error as needed
+            });
         }
 
-        // Checks if the name string contains only letters and is filled in
-        // if (!/^[a-zA-Z]+$/.test(name) || name.length === 0) {
-        //     // Handle the validation error
-        //     return res.status(400).json({ message: 'Validation error: Name must contain only letters.' });
-        // }
-
-        // // Checks if the name string contains only letters and is filled in
-        // if (!/^[a-zA-Z]+$/.test(name) || name.length === 0) {
-        //     it('should return a validation error message', function () {
-        //         expect(data.message).to.equal('make Name with only letters');
-        //         // Handle the validation error as needed
-        //     });
-        // }
-
-        //Checks if the mobile string contains exactly 8 digits
-        if (!mobile.trim() || !/^\d{8}$/.test(mobile)) {
-
+        else if (!mobile.trim() || !/^\d{8}$/.test(mobile)) {
             const validationError = { message: 'Invalid Mobile Number' };
             expect(validationError.message).to.equal('Invalid Mobile Number');
             return res.status(400).json(validationError);
 }
 
-        
+        else {
             const newUser = new User(name, email, password, mobile);
             const updatedUsers = await writeJSON(newUser, 'utils/users.json');
             return res.status(201).json(updatedUsers);
 
-        
+        }
     } catch (error) {
         return res.status(500).json({ error: true, message: error.message });
     }
 
 }
+
 
 async function updateUser(req, res) {
     try {

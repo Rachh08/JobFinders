@@ -111,10 +111,10 @@ describe('Testing Update Function', () => {
         await updateUser(req, res);
     });
 
-    it('Should shows password should not have more than 8 digits', async () => {
+    it('Should shows password should not have less than 8 digits', async () => {
         const req = {
             body: {
-                password: 'pssdes?Ps',
+                password: 'pssd?Ps',
                 mobile: '44444444',
             },
             params: {
@@ -128,13 +128,13 @@ describe('Testing Update Function', () => {
                 return this;
             },
             json: function (data) {
-                expect(data.message).to.equal('Password should not have more than 8 digits!');
+                expect(data.message).to.equal('Password should have at least 8 digits!');
             },
         };
         await updateUser(req, res);
     });
 
-    it('Should shows User details is unsuccessful! ', async () => {
+    it('Should shows User details has been updated unsuccessfully! ', async () => {
         const req = {
             body: {
                 password: '@ddddErr',
@@ -151,7 +151,7 @@ describe('Testing Update Function', () => {
                 return this;
             },
             json: function (data) {
-                expect(data.message).to.equal('User details is unsuccessful!');
+                expect(data.message).to.equal('User details has not been updated successfully!');
             },
         };
         await updateUser(req, res);

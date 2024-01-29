@@ -14,11 +14,11 @@ function viewUsers() {
             '<td>' + response.users[i].id + '</td>' +
             '<td>' + response.users[i].name + '</td>' +
             '<td>' + response.users[i].email + '</td>' +
-            '<td>' + response.users[i].mobile + '</td>' +
             '<td>' + response.users[i].password + '</td>' +
+            '<td>' + response.users[i].mobile + '</td>' +
             '<td>' +
-            '<button type="button" class="btn btn-warning" onclick="updateUser(' +
-            response.users[i].id + ')">Update </button> ' +
+            '<button type="button" class="btn btn-warning" onclick="updateUser(\'' +
+            JSON.stringify(response.users[i]).replaceAll('\"', '&quot;') + '\')">Update </button> ' +
             '<button type="button" class="btn btn-danger" onclick="deleteUser(\'' +
             response.users[i].name +'\')"> Delete</button>' +
             '</td>' +
@@ -39,16 +39,16 @@ function viewUsers() {
     viewUsers();
   };
 
-function updateUser(data) {
-    var selectedUser = JSON.parse(data);
-    document.getElementById("updatePassword").value = selectedUser.password;
-    document.getElementById("updateMobile").value = selectedUser.mobile; // changed from selectedMobile.mobile
-    document.getElementById("updateButton").setAttribute("onclick", 'editUser("' + selectedUser.id + '")'); // changed from updateUser to editUser
-    $('#updateUserModal').modal('show');
+function updateUser(data) {    
+    var selectedUser = JSON.parse(data);        
+    document.getElementById("updatePassword").value = selectedUser.password;     
+    document.getElementById("updateMobile").value = selectedUser.mobile;     
+    document.getElementById("updateButton").setAttribute("onclick", 'editUser("' + selectedUser.id + '")'); // changed from updateUser to editUser    
+    $('#updateUserModal').modal('show'); 
 }
 
 function editUser(id) {
-    console.log(id)
+    console.log(id);
     var response = "";
     var jsonData = new Object();
     jsonData.password = document.getElementById("updatePassword").value; // corrected property name from name to password
@@ -58,8 +58,9 @@ function editUser(id) {
         document.getElementById("editMessage").setAttribute("class", "text-danger");
         return;
     }
+
     var request = new XMLHttpRequest();
-    request.open("PUT", "/updateUser/" + id, true);
+    request.open("PUT", "/updateuser/" + id, true);
     request.setRequestHeader('Content-Type', 'application/json');
     request.onload = function () {
         response = JSON.parse(request.responseText);

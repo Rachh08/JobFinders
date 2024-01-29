@@ -107,7 +107,7 @@ describe('Testing Register Function', () => {
             const res = {
                 status: function (code) {
                     // Expecting a successful response code
-                    expect(code).to.equal(500);
+                    expect(code).to.equal(200);
                     return this;
                 },
                 json: function (data) {

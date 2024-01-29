@@ -9,9 +9,6 @@
       "utils/JobsUtil.js",
       "utils/UserUtil.js"
 
-      "utils/UserUtil.js",
-      "utils/JobsUtil.js"
-
     ],
     "exclude": [],
     "reporter": [

@@ -96,6 +96,7 @@ describe('Testing Register Function', () => {
 
     describe('Testing searchJobs Function', () => {
         it('Should return matching jobs for a valid query', async () => {
+
             const validQuery = 'developer';
             // Provide a valid search query
             const req = {
@@ -107,12 +108,14 @@ describe('Testing Register Function', () => {
             const res = {
                 status: function (code) {
                     // Expecting a successful response code
-                    expect(code).to.equal(500);
+                    // expect(code).to.equal(500);
+                    expect(code).to.equal(200);
                     return this;
                 },
                 json: function (data) {
                     // Expecting data to be an array (matching jobs)
-                    expect(data).to.have.property('message');
+                    // expect(data).to.have.property('message');
+                    expect(data.length).to.greaterThan(0);
                 },
             };
 
@@ -159,7 +162,8 @@ describe('Testing Register Function', () => {
                 },
                 json: function (data) {
                     // Expecting a message about an invalid search query
-                    expect(data).to.have.property('message').to.equal('Search query should only contain letters.');
+                    console.log(data.error.message);
+                    expect(data.error.message).to.equal('Search query should only contain letters and spaces.');
                 },
             };
 

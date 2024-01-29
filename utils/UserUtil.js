@@ -66,9 +66,10 @@ async function login(req, res) {
 async function register(req, res) {
 
     try {
+        const name = req.body.name;
         const email = req.body.email;
         const password = req.body.password;
-        const name = req.body.name;
+        const confirmpassword = req.body.confirmpassword;
         const mobile = req.body.mobile;
         const allUsers = await readJSON('utils/users.json');
 
@@ -105,6 +106,20 @@ async function register(req, res) {
             });
         }
 
+        // Checks if the password and confirm password match
+        if (password !== confirmpassword) {
+            // Handle the validation error
+            return res.status(400).json({ message: 'Validation error: Password and confirm password do not match.' });
+        }
+
+        // Checks if the name string contains only letters and is filled in
+        // if (!/^[a-zA-Z]+$/.test(name) || name.length === 0) {
+        //     // Handle the validation error
+        //     return res.status(400).json({ message: 'Validation error: Name must contain only letters.' });
+        // }
+
+        // Checks if the mobile string contains exactly 8 digits
+        if (!mobile.trim() || !/^\d{8}$/.test(mobile)) {
         // Checks if the name string contains only letters and is filled in
         else if (!/^[a-zA-Z]+$/.test(name) || name.length === 0) {
             it('should return a validation error message', function () {
@@ -114,6 +129,7 @@ async function register(req, res) {
         }
 
         else if (!mobile.trim() || !/^\d{8}$/.test(mobile)) {
+
             const validationError = { message: 'Invalid Mobile Number' };
             expect(validationError.message).to.equal('Invalid Mobile Number');
             return res.status(400).json(validationError);

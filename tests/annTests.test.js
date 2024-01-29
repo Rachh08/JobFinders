@@ -30,6 +30,7 @@ describe("Testing View Job Functions",  () => {
     });
 
 
+
 describe('Testing Add Job Functions', () => {
     const jobFilePath = 'utils/jobs.json';
     var orgContent = "";
@@ -136,19 +137,6 @@ describe('Testing Add Job Functions', () => {
 });
 
 describe('Delete User Function Testing', () => {
-
-    const usersFilePath = 'utils/users.json';
-    var orgContent = "";
-
-    beforeEach(async () => {
-        orgContent = await fs.readFile(usersFilePath, 'utf8');
-        orgContent = JSON.parse(orgContent);
-    });
-    
-    afterEach(async () => {
-        await fs.writeFile(usersFilePath, JSON.stringify(orgContent), 'utf8');
-    });
-
     // Helper function to create a mock user for testing
     const createMockUser = (name, password) => ({ name, password });
 
@@ -227,4 +215,3 @@ describe('Delete User Function Testing', () => {
     });
 
 });
-

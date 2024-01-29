@@ -5,8 +5,10 @@
   "main": "index.js",
   "nyc": {
     "include": [
-      "utils/UserUtil.js",
-      "utils/JobsUtil.js"
+
+      "utils/JobsUtil.js",
+      "utils/UserUtil.js"
+
     ],
     "exclude": [],
     "reporter": [

@@ -3,7 +3,6 @@ function viewResources() {
         .then(response => response.json())
         .then(data => {
             const jobTable = document.getElementById('jobTable').getElementsByTagName('tbody')[0];
-
             let html = '';
             data.forEach((job, index) => {
                 html += `<tr>
@@ -22,8 +21,12 @@ function viewResources() {
 
             jobTable.innerHTML = html;
         })
-        .catch(error => console.error('Error fetching job data:', error));
-}
+        .catch(error => {console.error('Error fetching job data:', error);
+
+        // Display an error message if fetching data fails
+        jobTable.innerHTML = '<tr><td colspan="7">Error fetching data. Please try again later.</td></tr>';
+    }
+)}
 
 
 // // Call the function to load data when the page is loaded

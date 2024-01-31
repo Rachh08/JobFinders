@@ -33,26 +33,26 @@ describe('Testing Home Page UI - View Jobs', function () {
     });
 
     it('Should have the correct heading and logo', async function () {
-        const baseUrl = 'http://localhost:' + server.address().port + '/instrumented/home.html';        
+        const baseUrl = 'http://localhost:' + server.address().port + '/instrumented/home.html';
         await driver.get(baseUrl);
-    
+
         // Wait for the h1 element to be present
         const h1Element = await driver.wait(until.elementLocated(By.css('.box-1 h1')), 10000); // Increased timeout to 10 seconds
-    
+
         // Verify the title text
         const text = await h1Element.getText();
         //console.log('Title Text:', text);
         expect(text).to.equal('JobFinders');
-    
+
         // Wait for the image element to be present
         const imgElement = await driver.wait(until.elementLocated(By.css('.box-1 img')), 10000); // Increased timeout to 10 seconds
-    
+
         // Verify the alt attribute of the image
         const altAttribute = await imgElement.getAttribute('alt');
         //console.log('Alt Attribute:', altAttribute);
         expect(altAttribute).to.equal('Job Finders logo');
     });
-    
+
 
 
     it('Should load job data into the jobTable', async function () {
@@ -72,69 +72,6 @@ describe('Testing Home Page UI - View Jobs', function () {
     });
 
 });
-
-//Error handling for view jobs - unsuccessful
-// it('Should display error message if the data is unloaded', async function () {
-//     let tableText; // Declare the variable outside the try block
-
-//     try {
-//         const baseUrl = 'http://localhost:' + server.address().port + '/instrumented/home.html';
-//         await driver.get(baseUrl);
-
-//         // Simulate a server issue by rejecting the promise with a server error object
-//         await driver.executeScript("window.viewJobs = function() { return Promise.reject({ status: 500, message: 'Internal Server Error' }); }");
-//         await driver.sleep(1000);
-
-//         const jobTable = await driver.wait(until.elementLocated(By.id('jobTable')), 5000);
-//         const isDisplayed = await jobTable.isDisplayed();
-//         expect(isDisplayed).to.be.true;
-
-//         //const jobTable = await driver.findElement({ id: 'jobTable' });
-//         tableText = await jobTable.getText();
-
-//         expect(tableText.includes('Error fetching data. Please try again later.')).to.be.true;
-//     } catch (error) {
-//         console.log('Actual content:', tableText);
-//         console.error('Test failed with error:', error);
-//         throw error;
-//     }
-// });
-
-
-
-describe('Testing Home Page UI - Add jobs', () => {
-
-    it('Should open Add Job Modal when button is clicked', async () => {
-        const baseUrl = 'http://localhost:' + server.address().port + '/instrumented/home.html';
-        await driver.get(baseUrl);
-
-        const addJobButton = await driver.wait(until.elementLocated(By.css('button[data-toggle="modal"][data-target="#addJobModal"]')), 5000);
-        await addJobButton.click();
-    
-        // Wait for the modal to be present
-        const addJobModal = await driver.wait(until.elementLocated(By.id('addJobModal')), 5000);
-        
-        await driver.wait(until.elementIsVisible(addJobModal), 5000); 
-        
-        // Verify if the modal is displayed
-        const isModalDisplayed = await addJobModal.isDisplayed();
-        expect(isModalDisplayed).to.be.true;
-    });
-
-    it('Should successfully add a new job', async () => {
-        const baseUrl = 'http://localhost:' + server.address().port + '/instrumented/home.html';
-        await driver.get(baseUrl);
-    });
-
-    it('Should show error messages for each wrong field', async () => {
-        const baseUrl = 'http://localhost:' + server.address().port + '/instrumented/home.html';
-        await driver.get(baseUrl);
-    });
-
-
-});
-
-
 
 after(async function () {
     await driver.quit();

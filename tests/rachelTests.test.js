@@ -1,4 +1,4 @@
-const { describe, it } = require('mocha');
+const { describe, it,before, after } = require('mocha');
 const { expect } = require('chai');
 const fs = require('fs').promises;
 const { register } = require('../utils/UserUtil');
@@ -92,6 +92,58 @@ describe('Testing Register Function', () => {
             console.error('Error during registration:', error);
         }
     });
+
+    it('Should return a validation error for partially filled registration form', async () => {
+        const req = {
+            body: {
+                // Include only some fields, leaving others empty
+                name: 'mabel',
+                email: '',
+                password: 'Ty07456@',
+                mobile: '64678268'
+            },
+        };
+    
+        const res = {
+            status: function (code) {
+                this.statusCode = code;
+                return this;
+            },
+            json: function (data) {
+                expect(this.statusCode).to.equal(400);
+                expect(data.message).to.equal('Validation error: All fields are required for registration.');
+            },
+        };
+    
+        // Call your register function
+        await register(req, res);
+    });
+    
+    it('Should return a validation error for weak password', async () => {
+        const req = {
+            body: {
+                email: 'rachel@gmail.com',
+                password: 'weak',  // Providing a weak password intentionally for this test
+                name: 'Rach',
+                mobile: '87821800',
+            },
+        };
+        const res = {
+            status: function (code) {
+                // Update the expected status code to 400
+                expect(code).to.equal(400);
+                return this;
+            },
+            json: function (data) {
+                expect(data.message).to.include('Validation error');
+            },
+        };
+    
+        // Call your register function
+        await register(req, res);
+    });
+
+
 });
 
 describe('Testing searchJobs Function', () => {
@@ -172,52 +224,3 @@ describe('Testing searchJobs Function', () => {
     });
 });
 
-it('Should return a validation error for partially filled registration form', async () => {
-    const req = {
-        body: {
-            // Include only some fields, leaving others empty
-            name: 'mabel',
-            email: '',
-            password: 'Ty07456@',
-            mobile: '64678268'
-        },
-    };
-
-    const res = {
-        status: function (code) {
-            this.statusCode = code;
-            return this;
-        },
-        json: function (data) {
-            expect(this.statusCode).to.equal(400);
-            expect(data.message).to.equal('Validation error: All fields are required for registration.');
-        },
-    };
-
-    // Call your register function
-    await register(req, res);
-});
-
-it('Should return a validation error for weak password', async () => {
-    const req = {
-        body: {
-            email: 'rachel@gmail.com',
-            password: 'weak',  // Providing a weak password intentionally for this test
-            name: 'Rach',
-            mobile: '87821800',
-        },
-    };
-    const res = {
-        status: function (code) {
-            // Update the expected status code to 400
-            expect(code).to.equal(400);
-            return this;
-        },
-        json: function (data) {
-            expect(data.message).to.include('Validation error');
-        },
-    };
-
-    // Call your register function
-    await register(req, res);
-});

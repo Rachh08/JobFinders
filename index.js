@@ -51,3 +51,9 @@ app.listen(PORT, function () {
     console.log(`Demo project at: ${PORT}!`);
 });
 
+const server = app.listen(PORT, function () {
+    console.log(`Demo project at: http://localhost:${PORT}`);
+
+});
+
+module.exports = { app, server };

@@ -71,7 +71,60 @@ describe('Testing Home Page UI - View Jobs', function () {
         expect(jobTableHTML.includes('<td>littlechef@gmail.com</td>')).to.be.true;
     });
 
+    // it('Should load job data into the jobTable', async function () {
+    //     const baseUrl = 'http://localhost:' + server.address().port + '/instrumented/home.html';
+    //     await driver.get(baseUrl);
+
+    //     // Mocking the fetch response for the viewResources function
+    //     const mockResponse = [
+    //         {
+    //             id: 1,
+    //             jobName: 'Assistant Chef',
+    //             company: 'Gordon Ramsay Kitchen',
+    //             location: 'Bedok Green',
+    //             description: 'Cook delicious food and work under renown chef Gordon Ramsay. Training Provided. Send portfolio with resume. Thanks',
+    //             contact: 'littlechef@gmail.com',
+    //         }
+    //         // Add more mock data if needed
+    //     ];
+
+    //     // Mock the fetch function to return the predefined response
+    //     global.fetch = jest.fn().mockResolvedValue({
+    //         json: () => Promise.resolve(mockResponse)
+    //     });
+
+    //     // Call the viewResources function
+    //     await driver.executeScript(viewResources);
+
+    //     // Wait for the jobTable to be populated
+    //     const jobTableHTML = await driver.wait(until.elementLocated(By.css('#jobTable')), 10000).then(element => element.getAttribute('innerHTML'));
+
+    //     // Perform assertions based on the mock response
+    //     expect(jobTableHTML.includes('<td>1</td>')).to.be.true;
+    //     expect(jobTableHTML.includes('<td>Assistant Chef</td>')).to.be.true;
+    //     expect(jobTableHTML.includes('<td>Gordon Ramsay Kitchen</td>')).to.be.true;
+    //     expect(jobTableHTML.includes('<td>Bedok Green</td>')).to.be.true;
+    //     expect(jobTableHTML.includes('<td>Cook delicious food and work under renown chef Gordon Ramsay. Training Provided. Send portfolio with resume. Thanks</td>')).to.be.true;
+    //     expect(jobTableHTML.includes('<td>littlechef@gmail.com</td>')).to.be.true;
+    // });
+
 });
+
+afterEach(async function () {
+    await driver.executeScript('return window.__coverage__;').then(async (coverageData) => {
+    if (coverageData) {
+    // Save coverage data to a file
+    await fs.writeFile('coverage-frontend/coverage'+ counter++ + '.json',
+    JSON.stringify(coverageData), (err) => {
+    if (err) {
+    console.error('Error writing coverage data:', err);
+    } else {
+    console.log('Coverage data written to coverage.json');
+    }
+    });
+    }
+    });
+    });
 
 after(async function () {
     await driver.quit();

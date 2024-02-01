@@ -1,0 +1,8 @@
+version: '3'
+services:
+  build-rms:
+    build:
+      context: .
+      dockerfile: Dockerfiledarrian
+    image: darrianlee/rms-docker-img:latest
+    container_name: rms-docker-container

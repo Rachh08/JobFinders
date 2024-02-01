@@ -12,12 +12,12 @@ app.use(express.static("./public"));
 
 //Enable CORS for all routes
 app.use((req, res, next) => {
-    const allowedOrigin = req.headers.origin; 
+    const allowedOrigin = req.headers.origin;
 
     res.header('Access-Control-Allow-Origin', allowedOrigin);
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
-    
+
     next();
 });
 
@@ -52,6 +52,8 @@ app.get('/', (req, res) => {
 const server = app.listen(PORT, function () {
 
     console.log(`Demo project at: ${PORT}!`);
+    logger.info(`Demo project at: ${PORT}!`);
+    logger.error(`Example or error log`)
 });
 
 module.exports = { app, server }

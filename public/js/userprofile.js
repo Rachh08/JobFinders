@@ -62,8 +62,8 @@ function editUser(id) {
     var mobile = /^[0-9]/;
 
     //if password exceeds 8 digits
-    if (password.length > 8) {
-        document.getElementById("editMessage").innerHTML = "Password must not be more than 8 digits";
+    if (password.length < 8) {
+        document.getElementById("editMessage").innerHTML = "Password should have at least 8 digits!";
         document.getElementById("editMessage").setAttribute("class", "text-danger");
         return;
     } 

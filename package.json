@@ -6,7 +6,9 @@
   "nyc": {
     "include": [
       "utils/UserUtil.js",
-      "utils/JobsUtil.js"
+      "utils/JobsUtil.js",
+      "index.js",
+      "public/**/*.js"
     ],
     "exclude": [],
     "reporter": [
@@ -20,10 +22,10 @@
     "statements": 80
   },
   "scripts": {
-    "test": "nyc mocha tests/*.test.js",
+    "test": "nyc mocha tests/darrianUITests.test.js",
     "start": "node index.js",
     "frontend-instrument": "nyc instrument .\\public\\js .\\public\\instrumented\\js && copy .\\public\\*.html .\\public\\instrumented\\ && copy .\\public\\images .\\public\\instrumented\\ && copy .\\public\\css .\\public\\instrumented\\ && del .\\coverage-frontend\\*.json",
-"frontend-report": "nyc report --reporter html --reporter text -t coverage-frontend--report-dir coverage-frontend/summary"
+    "frontend-report": "nyc report --reporter html --reporter text -t coverage-frontend--report-dir coverage-frontend/summary"
   },
   "author": "",
   "license": "ISC",

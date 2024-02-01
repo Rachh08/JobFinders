@@ -54,5 +54,4 @@ const server = app.listen(PORT, function () {
     console.log(`Demo project at: ${PORT}!`);
 });
 
-module.exports= {app, server}
-
+module.exports = { app, server }

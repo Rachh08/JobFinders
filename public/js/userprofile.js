@@ -54,9 +54,29 @@ function editUser(id) {
     jsonData.password = document.getElementById("updatePassword").value; // corrected property name from name to password
     jsonData.mobile = document.getElementById("updateMobile").value; // corrected property name from location to mobile
     if (jsonData.password == "" || jsonData.mobile == "") {
-        document.getElementById("editMessage").innerHTML = 'All fields are required!';
+        document.getElementById("editMessage").innerHTML = 'All input fields must be filled!';
         document.getElementById("editMessage").setAttribute("class", "text-danger");
         return;
+    }
+    var password = /(?=.*[A-Za-z0-9])(?=.*[!@#$%^&*])/;
+    var mobile = /^[0-9]/;
+
+    //if password exceeds 8 digits
+    if (password.length < 8) {
+        document.getElementById("editMessage").innerHTML = "Password should have at least 8 digits!";
+        document.getElementById("editMessage").setAttribute("class", "text-danger");
+        return;
+    } 
+    //if password does not consist of uppercase  
+    if (!/(?=.*[A-Za-z0-9])(?=.*[!@#$%^&*])/.test(jsonData.password)) {
+        document.getElementById("editMessage").innerHTML = "Password should contain at least one upper case letter and special character!";
+        document.getElementById("editMessage").setAttribute("class", "text-danger");
+        return;
+    }
+    // if mobile number consist of letter 
+    if (!/^[0-9]/.test(jsonData.mobile)) {
+        document.getElementById("editMessage").innerHTML = "Mobile number should contain only numbers!";
+        document.getElementById("editMessage").setAttribute("class", "text-danger");
     }
 
     var request = new XMLHttpRequest();

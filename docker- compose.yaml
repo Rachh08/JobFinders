@@ -4,5 +4,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfiledarrian
-    image: darrianlee/rms-docker-img:latest
+    image: darrianlee/rms-docker-img:v4
     container_name: rms-docker-container

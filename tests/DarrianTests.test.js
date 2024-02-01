@@ -68,7 +68,7 @@ describe('Testing Login Function', () => {
                 return this;
             },
             json: function (data) {
-                expect(data.message).to.equal('All input fields must be filled.');
+                expect(data.message).to.equal('All input fields must be filled!');
             },
         };
         await login(req, res);
@@ -111,7 +111,7 @@ describe('Testing Update Function', () => {
         await updateUser(req, res);
     });
 
-    it('Should shows password should not have less than 8 digits', async () => {
+    it('Should shows password should have at least 8 digits', async () => {
         const req = {
             body: {
                 password: 'pssd?Ps',

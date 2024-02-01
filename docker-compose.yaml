@@ -1,0 +1,8 @@
+version: '3'
+services:
+  build-rms:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: racheldvops/jobfinders-docker-img:latest
+    container_name: jobfinders-docker-container

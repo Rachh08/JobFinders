@@ -4,5 +4,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: racheldvops/jobfinders-docker-img:latest
+    image: racheldvops/jobfinders-docker-img:v3
     container_name: jobfinders-docker-container

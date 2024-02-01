@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobfinders-deployment-ann
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jf-docker-img
+  template:
+    metadata:
+      labels:
+        app: jf-docker-img
+    spec:
+      containers:
+      - name: jf-container
+        image: anrasjar/jf-docker-img:latest
+        ports:
+        - containerPort: 5055

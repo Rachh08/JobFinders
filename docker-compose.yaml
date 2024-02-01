@@ -1,0 +1,9 @@
+version: '3'
+services: 
+  build-jf:
+    build:
+      context: .
+      dockerfile: DockerFileAnn
+    image: anrasjar/jf-docker-img:latest
+    container_name: jf-docker-container
+

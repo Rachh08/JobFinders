@@ -7,6 +7,7 @@
     "include": [
       "utils/JobsUtil.js",
       "utils/UserUtil.js",
+      "public/**/*.js",
       "index.js"
     ],
     "exclude": [],
@@ -39,6 +40,7 @@
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "selenium-webdriver": "^4.17.0",
+    "terraform": "^1.23.0",
     "winston": "^3.11.0"
   },
   "devDependencies": {

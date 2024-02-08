@@ -107,23 +107,23 @@
 //     process.exit(0);
 // }); 
 
-var { app, server } = require("../index")
+var { app } = require("../index")
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const { describe, it, before, after } = require('mocha');
 const { expect } = require("chai");
 const fs = require('fs').promises;
-const path = require('path');
+// const path = require('path');
 
 
 const chrome = require('selenium-webdriver/chrome');
 const chromeOptions = new chrome.Options();
-//chromeOptions.addArguments("--headless"); 
+chromeOptions.addArguments("--headless"); 
 const driver = new Builder()
     .forBrowser("chrome")
     .setChromeOptions(chromeOptions)
     .build();
 
-// var server;
+var server;
 
 
 before(async function () {
@@ -212,26 +212,26 @@ describe('Testing Search Functionality', function () {
     });
 
 
-    // afterEach(async function () {
-    //     await driver.executeScript('return window.__coverage__;').then(async (coverageData) => {
-    //         if (coverageData) {
-    //             // Save coverage data to a file
-    //             await fs.writeFile('coverage-frontend/coverage' + counter++ + '.json',
-    //                 JSON.stringify(coverageData), (err) => {
-    //                     if (err) {
-    //                         console.error('Error writing coverage data:', err);
-    //                     } else {
-    //                         console.log('Coverage data written to coverage.json');
-    //                     }
-    //                 });
-    //         }
-    //     });
-    // });
+    afterEach(async function () {
+        await driver.executeScript('return window.__coverage__;').then(async (coverageData) => {
+            if (coverageData) {
+                // Save coverage data to a file
+                await fs.writeFile('coverage-frontend/coverage' + counter++ + '.json',
+                    JSON.stringify(coverageData), (err) => {
+                        if (err) {
+                            console.error('Error writing coverage data:', err);
+                        } else {
+                            console.log('Coverage data written to coverage.json');
+                        }
+                    });
+            }
+        });
+    });
 });
 
 
 after(async function () {
-    // await driver.quit();
+    await driver.quit();
     server.close();
-    process.exit(0);
+    // process.exit(0);
 });

@@ -4,6 +4,6 @@ services:
     build:
       context: .
       dockerfile: DockerfileAnn
-    image: anrasjar/jf-docker-img:v3
+    image: anrasjar/jf-docker-img:v5
     container_name: jf-docker-container
 

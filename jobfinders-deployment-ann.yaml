@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: jf-container
-        image: anrasjar/jf-docker-img:v3
+        image: anrasjar/jf-docker-img:v5
         ports:
         - containerPort: 5055
